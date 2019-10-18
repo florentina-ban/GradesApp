@@ -1,19 +1,21 @@
 package domain;
 
-public class Student <Integer> extends Entity<Integer>{
+public class Student extends Entity<Integer>{
     private String sirName;
     private String name;
     private int group;
     private String email;
     private String laboratoryGuide;
 
-    public Student(String sirName, String name, int group) {
+    public Student(int id, String sirName, String name, int group) {
+        this.setId(id);
         this.sirName = sirName;
         this.name = name;
         this.group = group;
     }
 
-    public Student(String sirName, String name, int group, String email, String laboratoryGuide) {
+    public Student(int id,String sirName, String name, int group, String email, String laboratoryGuide) {
+        this.setId(id);
         this.sirName = sirName;
         this.name = name;
         this.group = group;
@@ -63,5 +65,16 @@ public class Student <Integer> extends Entity<Integer>{
 
     public void setLaboratoryGuide(String laboratoryGuide) {
         this.laboratoryGuide = laboratoryGuide;
+    }
+
+    @Override
+    public String toString() {
+        return "Student: " +
+                "id='" + super.getId()+ '\''+
+                "sirName='" + sirName + '\'' +
+                ", name='" + name + '\'' +
+                ", group=" + group +
+                ", email='" + email + '\'' +
+                ", laboratoryGuide='" + laboratoryGuide + '\'';
     }
 }

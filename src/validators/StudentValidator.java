@@ -14,8 +14,9 @@ public class StudentValidator implements Validator<Student> {
             exception.addMessage("invalid sirname");
         if (entity.getGroup()<1 || entity.getGroup()>1000)
             exception.addMessage("invalid group");
-        if (entity.getEmail().split("@")[1].compareTo("scs.ubbcluj.ro")!=0)
-            exception.addMessage("invalid email address");
+
+       // if (entity.getEmail().split("@")[1].compareTo("scs.ubbcluj.ro")!=0)
+         //   exception.addMessage("invalid email address");
 
         if (exception.getMessages().size()>0)
             throw exception;

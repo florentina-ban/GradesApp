@@ -3,7 +3,7 @@ package exceptions;
 import java.lang.reflect.Array;
 import java.util.ArrayList;
 
-public class ValidationException extends Exception {
+public class ValidationException extends RuntimeException {
     private ArrayList<String> exceptions;
 /*
     public ValidationException(String message) {
