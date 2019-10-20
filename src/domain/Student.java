@@ -7,13 +7,6 @@ public class Student extends Entity<Integer>{
     private String email;
     private String laboratoryGuide;
 
-    public Student(int id, String sirName, String name, int group) {
-        this.setId(id);
-        this.sirName = sirName;
-        this.name = name;
-        this.group = group;
-    }
-
     public Student(int id,String sirName, String name, int group, String email, String laboratoryGuide) {
         this.setId(id);
         this.sirName = sirName;
