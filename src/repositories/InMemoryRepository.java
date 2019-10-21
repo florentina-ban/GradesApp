@@ -41,7 +41,11 @@ public class InMemoryRepository<ID, E extends Entity<ID>> implements CrudReposit
      */
     @Override
     public Iterable<E> findAll() {
-        return allEntities.values();
+        List<E> all = new ArrayList<>();
+        for (E e: allEntities.values()) {
+            all.add(e);
+        }
+        return all;
     }
 
     /**
@@ -56,7 +60,8 @@ public class InMemoryRepository<ID, E extends Entity<ID>> implements CrudReposit
             throw new IllegalArgumentException();
         validator.validate(entity);
         E oldElement = findOne(entity.getId());
-        allEntities.put(entity.getId(),entity);
+        if (oldElement==null)
+            allEntities.put(entity.getId(),entity);
         return oldElement;
     }
 
@@ -88,8 +93,9 @@ public class InMemoryRepository<ID, E extends Entity<ID>> implements CrudReposit
         validator.validate(entity);
         E oldElement = findOne(entity.getId());
         if (oldElement==null) {
-            return save(entity);
+            return entity;
         }
-        return entity;
+        allEntities.put(entity.getId(),entity);
+        return null;
     }
 }

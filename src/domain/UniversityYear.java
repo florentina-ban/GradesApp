@@ -1,5 +1,7 @@
 package domain;
 
+import utils.Constants;
+
 import java.util.Calendar;
 
 public class UniversityYear {
@@ -7,10 +9,19 @@ public class UniversityYear {
     private int year;
     private SemesterStructure semester1,semester2;
 
-    public UniversityYear(String id, int year,String s) {
+    public UniversityYear(String id, int year) {
         this.id = id;
         this.year = year;
-        semester1 = new SemesterStructure(s);
+        switch (year) {
+            case 2019:
+                semester1 = new SemesterStructure(Constants.FIRST_DAY2019);
+                break;
+            case 2020:
+                semester1 = new SemesterStructure(Constants.FIRST_DAY2020);
+                break;
+            default:
+                throw new RuntimeException("please update de first day of school folder");
+        }
         semester2 = new SemesterStructure(semester1.getSecondSemester());
     }
 
