@@ -5,14 +5,27 @@ import utils.Constants;
 import java.util.Calendar;
 
 public class UniversityYear {
-    private String id;
+    //private String id;
     private int year;
     private SemesterStructure semester1,semester2;
 
-    public UniversityYear(String id, int year) {
-        this.id = id;
-        this.year = year;
-        switch (year) {
+    private static UniversityYear instance=null;
+
+    public static UniversityYear getInstance() {
+        if (instance == null)
+            instance = new UniversityYear();
+        return instance;
+    }
+    private UniversityYear() {
+        //this.id = id;
+        int year= Calendar.getInstance().get(Calendar.YEAR);
+        int month=Calendar.getInstance().get(Calendar.MONTH);
+        if (month<6)
+            this.year = year-1;
+        else
+            this.year = year;
+
+        switch (this.year) {
             case 2019:
                 semester1 = new SemesterStructure(Constants.FIRST_DAY2019);
                 break;
@@ -24,10 +37,11 @@ public class UniversityYear {
         }
         semester2 = new SemesterStructure(semester1.getSecondSemester());
     }
-
+/*
     public String getId() {
         return id;
     }
+ */
 
     public int getYear() {
         return year;

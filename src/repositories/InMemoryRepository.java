@@ -3,12 +3,7 @@ package repositories;
 import domain.Entity;
 import domain.Student;
 import exceptions.ValidationException;
-import javafx.scene.control.skin.CellSkinBase;
-import validators.StudentValidator;
 import validators.Validator;
-import validators.ValidatorFactory;
-
-import java.lang.reflect.Array;
 import java.util.*;
 
 

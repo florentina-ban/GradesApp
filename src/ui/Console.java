@@ -57,7 +57,8 @@ public class Console {
             System.out.print("Guide Teacher: ");
             String teacher = reader.readLine();
 
-            Student student=new Student(id,sirName,name,group,email,teacher);
+            Student student=new Student(sirName,name,group,email,teacher);
+            student.setId(id);
             Student s=repoStudents.save(student);
             if (s==null)
                 System.out.println("Student saved");
@@ -108,7 +109,8 @@ public class Console {
             System.out.print("Guide Teacher: ");
             String teacher = reader.readLine();
 
-            Student student=new Student(id,sirName,name,group,email,teacher);
+            Student student=new Student(sirName,name,group,email,teacher);
+            student.setId(id);
             Student s=repoStudents.update(student);
             if (s==null)
                 System.out.println("student updated");
@@ -160,7 +162,8 @@ public class Console {
             String description=reader.readLine();
             System.out.println("deadline week: ");
             int deadline = Integer.parseInt(reader.readLine());
-            Assignment assignment=new Assignment(id,description,deadline,new UniversityYear("dsd",2019));
+            Assignment assignment=new Assignment(description,deadline,UniversityYear.getInstance());
+            assignment.setId(id);
             repoAssignment.save(assignment);
             System.out.println("assignment saved");
         }catch (ValidationException valE) {
@@ -195,8 +198,8 @@ public class Console {
             String description=reader.readLine();
             System.out.println("deadline week: ");
             int deadline = Integer.parseInt(reader.readLine());
-            Assignment assignment=new Assignment(id,description,deadline,new UniversityYear("dsd",2019));
-
+            Assignment assignment=new Assignment(description,deadline,UniversityYear.getInstance());
+            assignment.setId(id);
             if (repoAssignment.update(assignment)==null)
                 System.out.println("assignment updated");
             else

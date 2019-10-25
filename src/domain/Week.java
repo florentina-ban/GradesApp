@@ -11,7 +11,7 @@ public class Week {
     public Week(String s) {
         String[] parts = s.split("-");
 
-        this.beginning =Calendar.getInstance();
+        this.beginning =transformStringToDate(s);
         int year = Integer.parseInt(parts[2]);
         int month = Integer.parseInt(parts[1])-1;
         int day= Integer.parseInt(parts[0]);

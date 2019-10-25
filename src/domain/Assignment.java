@@ -18,8 +18,7 @@ public class Assignment extends Entity<String> {
      * @param deadlineWeek - int - number of the week (1-14)
      * @param year - universityYear - structure of the year when the assignment was given
      */
-    public Assignment(String id, String description, int deadlineWeek, UniversityYear year) {
-        super.setId(id);
+    public Assignment(String description, int deadlineWeek, UniversityYear year) {
         this.description = description;
         this.deadlineWeek = deadlineWeek;
         this.year = year;
@@ -51,6 +50,13 @@ public class Assignment extends Entity<String> {
     }
 
     /**
+     * @param startWeek - integer - the week when the assignment was given;
+     */
+    public void setStartWeek(int startWeek) {
+        this.startWeek = startWeek;
+    }
+
+    /**
      * @return - string -assignment text
      */
     public String getDescription() {
@@ -71,6 +77,9 @@ public class Assignment extends Entity<String> {
         return deadlineWeek;
     }
 
+    /**
+     * @return - int - semester
+     */
     public int getSemester() {
         return semester;
     }

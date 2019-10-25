@@ -16,8 +16,7 @@ public class Student extends Entity<Integer>{
      * @param email - string
      * @param laboratoryGuide - string
      */
-    public Student(int id,String sirName, String name, int group, String email, String laboratoryGuide) {
-        this.setId(id);
+    public Student(String sirName, String name, int group, String email, String laboratoryGuide) {
         this.sirName = sirName;
         this.name = name;
         this.group = group;
@@ -49,7 +48,7 @@ public class Student extends Entity<Integer>{
     /**
      * @return - int - student's group number
      */
-    public int getGroup() {
+    public Integer getGroup() {
         return group;
     }
 
