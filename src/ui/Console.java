@@ -1,39 +1,42 @@
 package ui;
 
 import domain.Assignment;
+import domain.Entity;
+import domain.Grade;
 import domain.Student;
-import domain.UniversityYear;
+import exceptions.GradeException;
 import exceptions.ValidationException;
-import repositories.InMemoryRepository;
+import service.Service;
 
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 
 public class Console {
-    InMemoryRepository<Integer,Student> repoStudents;
-    InMemoryRepository<String, Assignment> repoAssignment;
-    BufferedReader reader;
+    private Service service;
+    private BufferedReader reader;
 
-
-    public Console(InMemoryRepository<Integer, Student> repoStudents, InMemoryRepository<String, Assignment> repoAssignment) {
-        this.repoStudents = repoStudents;
-        this.repoAssignment = repoAssignment;
+    public Console(Service service) {
+        this.service = service;
         this.reader = new BufferedReader(new InputStreamReader(System.in));
+
     }
+
     private void showMenu(){
         System.out.println("1. All Students"+"        "+"6. All Assignments");
         System.out.println("2. Add Student"+"         "+"7. Add Assignment");
         System.out.println("3. Find Student"+"        "+"8. Find Assignment");
         System.out.println("4. Update Student"+"      "+"9. Update Assignment");
         System.out.println("5. Remove Student"+"      "+"10. Remove Assignments");
+        System.out.println("11. Grade a student");
+        System.out.println("12. All Grades");
 
         System.out.println("X. Exit");
     }
 
     private void allStudents() {
         boolean hasStud=false;
-          for (Student st:repoStudents.findAll()) {
+          for (Entity st:service.findAll(Student.class)) {
               System.out.println(st);
               hasStud=true;
         }
@@ -59,7 +62,7 @@ public class Console {
 
             Student student=new Student(sirName,name,group,email,teacher);
             student.setId(id);
-            Student s=repoStudents.save(student);
+            Entity s=service.save(student);
             if (s==null)
                 System.out.println("Student saved");
             else
@@ -67,11 +70,9 @@ public class Console {
 
         }catch (ValidationException e){
             System.out.println(e.getMessages());
-        }
-        catch (IllegalArgumentException e){
+        }catch (IllegalArgumentException e){
             System.out.println("illegal argument ex");
-        }
-        catch (IOException e){
+        }catch (IOException e){
             System.out.println(e.getMessage());
         }
     }
@@ -80,7 +81,7 @@ public class Console {
         try {
             System.out.print("Id: ");
             int id = Integer.parseInt(reader.readLine());
-            Student student=repoStudents.findOne(id);
+            Entity student=service.findOne(id,Student.class);
 
             if (student==null)
                 System.out.println("Student not found");
@@ -111,7 +112,7 @@ public class Console {
 
             Student student=new Student(sirName,name,group,email,teacher);
             student.setId(id);
-            Student s=repoStudents.update(student);
+            Entity s=service.update(student);
             if (s==null)
                 System.out.println("student updated");
             else
@@ -130,8 +131,7 @@ public class Console {
         try {
             System.out.print("Id: ");
             int id = Integer.parseInt(reader.readLine());
-            Student student=repoStudents.delete(id);
-
+            Entity student=service.delete(id,Student.class);
             if (student==null)
                 System.out.println("Student not found");
             else
@@ -144,9 +144,8 @@ public class Console {
         }
     }
     private void allAssignments(){
-        Iterable<Assignment> all=repoAssignment.findAll();
         boolean hasAs=false;
-        for(Assignment as:all) {
+        for(Entity as:service.findAll(Assignment.class)) {
             System.out.println(as);
             hasAs = true;
         }
@@ -162,9 +161,9 @@ public class Console {
             String description=reader.readLine();
             System.out.println("deadline week: ");
             int deadline = Integer.parseInt(reader.readLine());
-            Assignment assignment=new Assignment(description,deadline,UniversityYear.getInstance());
+            Assignment assignment=new Assignment(description,deadline);
             assignment.setId(id);
-            repoAssignment.save(assignment);
+            Entity as = service.save(assignment);
             System.out.println("assignment saved");
         }catch (ValidationException valE) {
             System.out.println(valE.getMessages());
@@ -178,7 +177,7 @@ public class Console {
         try{
             System.out.println("id: ");
             String id=reader.readLine();
-            Assignment assignment=repoAssignment.findOne(id);
+            Entity assignment=service.findOne(id,Assignment.class);
             if (assignment==null)
                 System.out.println("assignment not found");
             else
@@ -198,9 +197,9 @@ public class Console {
             String description=reader.readLine();
             System.out.println("deadline week: ");
             int deadline = Integer.parseInt(reader.readLine());
-            Assignment assignment=new Assignment(description,deadline,UniversityYear.getInstance());
+            Assignment assignment=new Assignment(description,deadline);
             assignment.setId(id);
-            if (repoAssignment.update(assignment)==null)
+            if (service.update(assignment)==null)
                 System.out.println("assignment updated");
             else
                 System.out.println("assignment not found");
@@ -217,7 +216,7 @@ public class Console {
         try {
             System.out.println("id: ");
             String id = reader.readLine();
-            if(repoAssignment.delete(id)==null)
+            if(service.delete(id,Assignment.class)==null)
                 System.out.println("Assignment not found");
             else
                 System.out.println("Assignment deleted");
@@ -226,6 +225,38 @@ public class Console {
         }catch (IOException e){
             System.out.println(e.getMessage());
         }
+    }
+    private void addGrade() {
+        try {
+            System.out.println("Student id: ");
+            int studId = Integer.parseInt(reader.readLine());
+            System.out.println("Assignment id: ");
+            String assignId = reader.readLine();
+            System.out.println("professor: ");
+            String prof = reader.readLine();
+            System.out.println("Grade: ");
+            float grade = Float.parseFloat(reader.readLine());
+            System.out.println("Feedback: ");
+            String feedback = reader.readLine();
+            Grade gr = new Grade(studId, assignId, prof,grade,feedback);
+            if (service.save(gr) == null)
+                System.out.println("grade saved");
+            else
+                System.out.println("grade already exists");
+        } catch (ValidationException e) {
+            System.out.println(e.getMessages());
+        } catch (GradeException e) {
+            System.out.println(e.getMessage());
+        } catch (IOException e) {
+            System.out.println(e.getMessage());
+        } catch (IllegalArgumentException e) {
+            System.out.println(e.getMessage());
+        }
+    }
+    private void allGrades(){
+        Iterable<? extends Entity> allGrades=service.findAll(Grade.class);
+        for (Entity grade:allGrades)
+            System.out.println(grade);
     }
     public void execute() {
         String command = "";
@@ -267,6 +298,12 @@ public class Console {
                     break;
                 case "10":
                     removeAssignment();
+                    break;
+                case "11":
+                    addGrade();
+                    break;
+                case "12":
+                    allGrades();
                     break;
                 default:
                     if (command.compareTo("x") != 0 && command.compareTo("X") != 0)

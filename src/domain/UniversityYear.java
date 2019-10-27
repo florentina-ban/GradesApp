@@ -2,6 +2,8 @@ package domain;
 
 import utils.Constants;
 
+import javax.swing.text.DateFormatter;
+import java.time.LocalDateTime;
 import java.util.Calendar;
 
 public class UniversityYear {
@@ -54,4 +56,14 @@ public class UniversityYear {
     public SemesterStructure getSemester2() {
         return semester2;
     }
+
+    public SemesterStructure getSemester(){
+       Calendar currentCal=Calendar.getInstance();
+       String sem2=this.semester2.getBeginningDate();
+       Calendar sem2beginning=Week.transformStringToDate(sem2);
+       if (currentCal.compareTo(sem2beginning)<0)
+           return semester1;
+       else
+           return semester2;
+            }
 }

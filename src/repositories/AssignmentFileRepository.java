@@ -16,7 +16,7 @@ public class AssignmentFileRepository extends InFileRepository<String, Assignmen
     @Override
     Assignment parseLine(String x) {
         String[] parts=x.split(";");
-        Assignment assignment =  new Assignment(parts[1],Integer.parseInt(parts[3]), UniversityYear.getInstance());
+        Assignment assignment =  new Assignment(parts[1],Integer.parseInt(parts[3]));
         assignment.setId(parts[0]);
         assignment.setStartWeek(Integer.parseInt(parts[2]));
         return assignment;

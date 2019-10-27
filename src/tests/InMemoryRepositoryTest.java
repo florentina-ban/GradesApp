@@ -18,8 +18,10 @@ class InMemoryRepositoryTest {
     void findOne() {
         Validator validator = ValidatorFactory.createValidator(Student.class);
         InMemoryRepository<Integer, Student> repo=new InMemoryRepository<>(validator);
-        Student s1=new Student(1234,"ion","bacu",221,"icd@scs.ubbcluj.ro","popescu");
-        Student s2=new Student(5242,"ion","bacu",221,"icd@scs.ubbcluj.ro","popescu");
+        Student s1=new Student("ion","bacu",221,"icd@scs.ubbcluj.ro","popescu");
+        Student s2=new Student("ion","bacu",221,"icd@scs.ubbcluj.ro","popescu");
+        s1.setId(1234);
+        s2.setId(1244);
         repo.save(s1);
         repo.save(s2);
 
@@ -42,8 +44,10 @@ class InMemoryRepositoryTest {
         }
         assertTrue(len==0);
 
-        Student s1=new Student(1234,"ion","bacu",221,"icd@scs.ubbcluj.ro","popescu");
-        Student s2=new Student(5242,"ion","bacu",221,"icd@scs.ubbcluj.ro","popescu");
+        Student s1=new Student("ion","bacu",221,"icd@scs.ubbcluj.ro","popescu");
+        Student s2=new Student("ion","bacu",221,"icd@scs.ubbcluj.ro","popescu");
+        s1.setId(1234);
+        s2.setId(1244);
         repo.save(s1);
         repo.save(s2);
         all=repo.findAll();
@@ -58,9 +62,12 @@ class InMemoryRepositoryTest {
     void save() {
         Validator validator = ValidatorFactory.createValidator(Student.class);
         InMemoryRepository<Integer, Student> repo=new InMemoryRepository<>(validator);
-        Student s1=new Student(1234,"ion","bacu",221,"icd@scs.ubbcluj.ro","popescu");
-        Student s2=new Student(5242,"ion","bacu",221,"icd@scs.ubbcluj.ro","popescu");
-        Student s3=new Student(1323,"ion","bacu",221,"icd@yahoo.com","popescu");
+        Student s1=new Student("ion","bacu",221,"icd@scs.ubbcluj.ro","popescu");
+        Student s2=new Student("ion","bacu",221,"icd@scs.ubbcluj.ro","popescu");
+        Student s3=new Student("ion","bacu",221,"icd@yahoo.com","popescu");
+        s1.setId(1234);
+        s2.setId(1244);
+        s3.setId(1222);
         assertNull(repo.save(s1));
         assertNull(repo.save(s2));
         assertNotNull(repo.save(s1));
@@ -75,12 +82,14 @@ class InMemoryRepositoryTest {
     void delete() {
         Validator validator = ValidatorFactory.createValidator(Student.class);
         InMemoryRepository<Integer, Student> repo=new InMemoryRepository<>(validator);
-        Student s1=new Student(1234,"ion","bacu",221,"icd@scs.ubbcluj.ro","popescu");
-        Student s2=new Student(5242,"ion","bacu",221,"icd@scs.ubbcluj.ro","popescu");
+        Student s1=new Student("ion","bacu",221,"icd@scs.ubbcluj.ro","popescu");
+        Student s2=new Student("ion","bacu",221,"icd@scs.ubbcluj.ro","popescu");
         repo.save(s1);
         repo.save(s2);
+        s1.setId(1234);
+        s2.setId(1244);
         assertTrue((repo.delete(s1.getId()).getName().compareTo("bacu")==0));
-        assertNull(repo.delete(6545));
+        assertNull(repo.delete(1255));
         Iterable<Student> all=repo.findAll();
         int len=0;
         for (Student s:all){
@@ -93,17 +102,24 @@ class InMemoryRepositoryTest {
     void update() {
         Validator validator = ValidatorFactory.createValidator(Student.class);
         InMemoryRepository<Integer, Student> repo=new InMemoryRepository<>(validator);
-        Student s1=new Student(1234,"ion","bacu",221,"icd@scs.ubbcluj.ro","popescu");
-        Student s2=new Student(5242,"ion","bacu",221,"icd@scs.ubbcluj.ro","popescu");
+        Student s1=new Student("ion","bacu",221,"icd@scs.ubbcluj.ro","popescu");
+        Student s2=new Student("ion","bacu",221,"icd@scs.ubbcluj.ro","popescu");
+        s1.setId(1234);
+        s2.setId(1244);
         repo.save(s1);
         repo.save(s2);
 
-        assertNotNull(repo.update(new Student(2222,"nume","prenume",322,"hdc@scs.ubbcluj.ro","bla")));
+        Student s3=new Student("nume","prenume",322,"hdc@scs.ubbcluj.ro","bla");
+        s3.setId(2222);
+        Student s4=new Student("nume","prenume",322,"hdc@yahoo.com","bla");
+        s4.setId(2222);
+        assertNotNull(repo.update(s3));
         try {
-            repo.update(new Student(2222, "nume", "prenume", 322, "hdc@yahoo.com", "bla"));
+            repo.update(s4);
         }catch (ValidationException e){
         }
-        assertNull(repo.update(new Student(1234,"ion","bacu",100,"icd@scs.ubbcluj.ro","popescu")));
+        s4=new Student("ion","bacu",100,"icd@scs.ubbcluj.ro","popescu");
+        assertNull(repo.update(s4));
         assertTrue(repo.findOne(1234).getGroup()==100);
     }
 }
