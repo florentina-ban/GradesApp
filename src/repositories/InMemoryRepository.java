@@ -1,9 +1,14 @@
 package repositories;
 
+import domain.Assignment;
 import domain.Entity;
 import domain.Student;
+import domain.UniversityYear;
 import exceptions.ValidationException;
+import utils.Constants;
 import validators.Validator;
+
+import java.time.LocalDateTime;
 import java.util.*;
 
 
@@ -17,7 +22,7 @@ public class InMemoryRepository<ID, E extends Entity<ID>> implements CrudReposit
     }
 
     /**
-     *  @param id -the id of the entity to be returned  (id must not be null)
+     * @param id -the id of the entity to be returned  (id must not be null)
      * @return the entity with the specified id ,or null - if there is no entity with the given id
      * @throws IllegalArgumentException, if id is null.
      */
@@ -32,7 +37,7 @@ public class InMemoryRepository<ID, E extends Entity<ID>> implements CrudReposit
     }
 
     /**
-     * @return all entities
+     * @return all entities as an Iterable object
      */
     @Override
     public Iterable<E> findAll() {
@@ -90,6 +95,17 @@ public class InMemoryRepository<ID, E extends Entity<ID>> implements CrudReposit
         if (oldElement==null) {
             return entity;
         }
+
+        if (entity.getClass().getName().compareTo("domain.Assignment")==0) {
+            Assignment oldAs = (Assignment) oldElement;
+            Assignment  newAs = (Assignment) entity;
+            if (UniversityYear.getInstance().getSemester().getWeek(Constants.DATE_TIME_FORMATER.format(LocalDateTime.now()))>oldAs.getDeadlineWeek()) {
+                ValidationException ex = new ValidationException();
+                ex.addMessage("deadline has passed. The assignment can not be modified");
+                throw ex;
+            }
+        }
+
         allEntities.put(entity.getId(),entity);
         return null;
     }

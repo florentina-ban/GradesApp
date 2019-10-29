@@ -84,11 +84,11 @@ class InMemoryRepositoryTest {
         InMemoryRepository<Integer, Student> repo=new InMemoryRepository<>(validator);
         Student s1=new Student("ion","bacu",221,"icd@scs.ubbcluj.ro","popescu");
         Student s2=new Student("ion","bacu",221,"icd@scs.ubbcluj.ro","popescu");
-        repo.save(s1);
-        repo.save(s2);
         s1.setId(1234);
         s2.setId(1244);
-        assertTrue((repo.delete(s1.getId()).getName().compareTo("bacu")==0));
+        repo.save(s1);
+        repo.save(s2);
+        assertTrue(repo.delete(s1.getId()).getName().compareTo("bacu")==0);
         assertNull(repo.delete(1255));
         Iterable<Student> all=repo.findAll();
         int len=0;
@@ -112,13 +112,14 @@ class InMemoryRepositoryTest {
         Student s3=new Student("nume","prenume",322,"hdc@scs.ubbcluj.ro","bla");
         s3.setId(2222);
         Student s4=new Student("nume","prenume",322,"hdc@yahoo.com","bla");
-        s4.setId(2222);
+        s4.setId(1234);
         assertNotNull(repo.update(s3));
         try {
             repo.update(s4);
         }catch (ValidationException e){
         }
         s4=new Student("ion","bacu",100,"icd@scs.ubbcluj.ro","popescu");
+        s4.setId(1234);
         assertNull(repo.update(s4));
         assertTrue(repo.findOne(1234).getGroup()==100);
     }

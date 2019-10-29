@@ -5,6 +5,14 @@ import exceptions.ValidationException;
 
 public class StudentValidator implements Validator<Student> {
 
+    /**
+     * checks if a student is valid
+     * @param entity - type: Student (student that needs to be checked)
+     * @throws ValidationException if the student has
+     *      - an empty string as name or sirname
+     *      - a group less than 1 or greater than 1000
+     *      - am email that is not on scs@ubbcluj.ro platform
+     */
     @Override
     public void validate(Student entity) throws ValidationException {
         ValidationException exception=new ValidationException();

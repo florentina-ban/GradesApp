@@ -13,12 +13,29 @@ public class Grade extends Entity<String> {
     private float penalties;
     private float finalGrade;
 
-    public Grade(Integer studentId, String assignmentId, String professor, float grade) {
+    public Grade(String professor, float grade, String feedback) {
         this.professor = professor;
         this.grade_given = grade;
-
-        this.setId(studentId.toString() + '_' + assignmentId);
+        this.feedback=feedback;
         this.date = LocalDateTime.now();
+    }
+
+    public Grade(String id,String professor,float grade,String feedback){
+        this(professor,grade,feedback);
+        this.setId(id);
+    }
+
+    public Grade(Integer studentId, String assignmentId, String professor, float grade, String feedback) {
+        this(professor, grade,feedback);
+        this.setId(studentId.toString()+"_"+assignmentId);
+    }
+
+    public float getGrade_given() {
+        return grade_given;
+    }
+
+    public String getFeedback() {
+        return feedback;
     }
 
     private void calculateFinalGrade() {
@@ -36,17 +53,16 @@ public class Grade extends Entity<String> {
             this.finalGrade = 1;
     }
 
-    public Grade(Integer studentId, String assignmentId, String professor, float grade, String feedback) {
-        this(studentId, assignmentId, professor, grade);
-        this.feedback = feedback;
-    }
-
     public void setFeedback(String feedback) {
         this.feedback = feedback;
     }
 
     public void setDeadline(int deadline) {
         this.deadline = deadline;
+    }
+
+    public void setDate(LocalDateTime date) {
+        this.date = date;
     }
 
     public Integer getStudentId() {
@@ -83,8 +99,8 @@ public class Grade extends Entity<String> {
                 ", assignmentID= "+getAssignmentId()+
                 ", professor= " + professor +
                 ", grade_given= " + grade_given +
-                ", feedback= " +  feedback +
                 ", deadline= " + deadline +
+                ", date(weeks)" + UniversityYear.getInstance().getSemester().getWeek(Constants.DATE_TIME_FORMATER.format(this.date))+
                 ", penalties= " + penalties +
                 ", finalGrade= " + finalGrade +
                 '}';

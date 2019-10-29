@@ -1,7 +1,6 @@
 package repositories;
 
 import domain.Assignment;
-import domain.UniversityYear;
 import validators.Validator;
 
 import java.util.ArrayList;
@@ -11,6 +10,10 @@ public class AssignmentFileRepository extends InFileRepository<String, Assignmen
 
     public AssignmentFileRepository(Validator<Assignment> validator, String file) {
         super(validator, file);
+    }
+
+    public int getDeadline(Assignment assignment){
+        return this.findOne(assignment.getId()).getDeadlineWeek();
     }
 
     @Override

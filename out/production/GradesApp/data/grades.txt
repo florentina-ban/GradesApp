@@ -1,0 +1,7 @@
+1112_as2;prof1;10;4;totul e ok;29-10-2019
+1112_as3;prof1;7.5;7;probleme la interfata grafica;27-10-2019
+1112_as4;prof3;8.5;8;atentie la citirea din fisier;05-11-2019
+1113_as3;prof2;9;7;mici greseli de implementare;25-10-2019
+1113_as5;prof2;8.25;6;nu ai respectat paternul singleton;20-10-2019
+
+

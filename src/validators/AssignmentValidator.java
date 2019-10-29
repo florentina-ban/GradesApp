@@ -1,14 +1,19 @@
 package validators;
 
 import domain.Assignment;
-import domain.UniversityYear;
 import exceptions.ValidationException;
-import utils.Constants;
-
-import java.util.Calendar;
 
 public class AssignmentValidator implements Validator<Assignment> {
 
+    /**
+     * checks if an assignment is valid
+     * @param as -  the assignment that needs to be checked
+     * @throws ValidationException if the assignment -
+     *      - doesn't have an id or the id is an empty string
+     *      - deadline week is before the start week
+     *      - deadline week is not a number between 1 and 14
+     *      - description is an empty string
+     */
     @Override
     public void validate(Assignment as) throws ValidationException {
         ValidationException exception=new ValidationException();
@@ -21,20 +26,6 @@ public class AssignmentValidator implements Validator<Assignment> {
                 exception.addMessage("invalid deadline");
         if (as.getDescription().compareTo("")==0)
             exception.addMessage("assignment must have a description");
-
-        String currendDate= Constants.DATE_FORMATTER.format(Calendar.getInstance().getTime());
-        if (as.getSemester()==1) {
-            int currnetWeek = UniversityYear.getInstance().getSemester1().getWeek(currendDate);
-            if (currnetWeek > as.getDeadlineWeek())
-                exception.addMessage("deadline has already passed");
-        }
-        if (as.getSemester()==2) {
-            int currnetWeek = UniversityYear.getInstance().getSemester2().getWeek(currendDate);
-            if (currnetWeek > as.getDeadlineWeek())
-                exception.addMessage("deadline has already passed");
-        }
-
-
 
         if (exception.getMessages().size()>0)
             throw exception;

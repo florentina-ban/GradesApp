@@ -4,6 +4,7 @@ import domain.Assignment;
 import domain.Grade;
 import domain.Student;
 import repositories.AssignmentFileRepository;
+import repositories.GradeFileRepository;
 import repositories.InMemoryRepository;
 import repositories.StudentFileRepository;
 import service.Service;
@@ -25,9 +26,10 @@ public class Main {
 
         StudentFileRepository studentFileRepository = new StudentFileRepository(studentVal, "C:\\Users\\Flore\\Desktop\\info18\\MAP\\GradesApp\\src\\data\\studenti.txt");
         AssignmentFileRepository assignmentFileRepository = new AssignmentFileRepository(assignmentVal,"C:\\Users\\Flore\\Desktop\\info18\\MAP\\GradesApp\\src\\data\\assignments.txt");
-        InMemoryRepository<String,Grade> gradesRepo = new InMemoryRepository<>(gradeVal);
+        //InMemoryRepository<String,Grade> gradesRepo = new InMemoryRepository<>(gradeVal);
+        GradeFileRepository gradeFileRepository = new GradeFileRepository(gradeVal,"C:\\Users\\Flore\\Desktop\\info18\\MAP\\GradesApp\\src\\data\\grades.txt");
 
-        Service service=new Service(studentFileRepository,assignmentFileRepository,gradesRepo);
+        Service service=new Service(studentFileRepository,assignmentFileRepository,gradeFileRepository);
         Console console=new Console(service);
         console.execute();
 
