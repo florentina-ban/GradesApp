@@ -1,6 +1,0 @@
-1112_as5prof58.0ok29-10-2019
-1112_as4prof38.5atentie la citirea din fisier05-11-2019
-1113_as5prof28.25nu ai respectat paternul singleton20-10-2019
-1112_as3prof17.5probleme la interfata grafica27-10-2019
-1112_as2prof110.0totul e ok29-10-2019
-1113_as3prof29.0mici greseli de implementare25-10-2019

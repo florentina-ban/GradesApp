@@ -1,0 +1,10 @@
+1112;Ionescu;Petru;212;bla12@scs.ubbcluj.ro;someone
+1113;Georgescu;Geta;212;geta@scs.ubbcluj.ro;prfo3
+2121;Ban;Flore;221;dfd@scs.ubbcluj.ro;sdsd
+1114;Codescu;Ana;213;bla14@scs.ubbcluj.ro;someone
+1211;Pop;Emil;432;popscs@scs.ubbcluj.ro;dmkd
+1115;Ipatescu;Vasile;213;bla15@scs.ubbcluj.ro;someone
+1116;Vacarescu;Ioana;212;bla16@scs.ubbcluj.ro;someone
+1118;Albulescu;Dumitru;221;albu@scs.ubbcluj.ro;someone
+2110;Stanomirescu;Mara;332;st@scs.ubbcluj.ro;prof3
+1119;Valea;Vasile;221;valea@scs.ubbcluj.ro;prof1

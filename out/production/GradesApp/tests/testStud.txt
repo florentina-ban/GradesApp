@@ -1,7 +1,0 @@
-1112;Ionescu;Petru;212;bla12@scs.ubbcluj.ro;someone
-1113;Adamescu;Alina;212;bla13@scs.ubbcluj.ro;someone
-2121;ban;flore;221;dfd@scs.ubbcluj.ro;sdsd
-1114;Codescu;Ana;213;bla14@scs.ubbcluj.ro;someone
-9898;pop;emil;432;popscs@scs.ubbcluj.ro;dmkd
-1115;Ipatescu;Vasile;213;bla15@scs.ubbcluj.ro;someone
-1116;Vacarescu;Ioana;212;bla16@scs.ubbcluj.ro;someone
