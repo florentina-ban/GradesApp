@@ -54,8 +54,7 @@ public class Grade extends Entity<String> {
     }
     private float calculateFinalGrade() {
         float penalties=0,finalGrade;
-        String mydate = Constants.DATE_TIME_FORMATER.format(this.date);
-        int week = UniversityYear.getInstance().getSemester().getWeek(mydate);
+        int week = UniversityYear.getInstance().getSemester().getWeek(Constants.DATE_TIME_FORMATER.format(this.date));
         if (deadline - week >= 0)
             penalties = 0;
         else if (deadline - week < 0 && deadline - week >= -2)
@@ -122,6 +121,7 @@ public class Grade extends Entity<String> {
                 ", date(weeks): " + UniversityYear.getInstance().getSemester().getWeek(Constants.DATE_TIME_FORMATER.format(this.date))+
                 ", penalities: " + this.getPenalties()+
                 ", finalGrade: " + this.getFinalGrade()+
+                ", date: "+this.getDate()+
                 '}';
     }
 }

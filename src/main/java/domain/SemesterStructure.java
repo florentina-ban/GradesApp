@@ -94,3 +94,4 @@ public class SemesterStructure {
         return Constants.DATE_FORMATTER.format(aux.getTime());
     }
 }
+

@@ -9,7 +9,7 @@ import static org.junit.jupiter.api.Assertions.*;
 
 class StudentFileRepositoryTest {
     private Validator<Student> val = new StudentValidator();
-    InFileRepository<Integer, Student> repo = new StudentFileRepository(val, "C:/Users/Flore/Desktop/info18/MAP/graddle/GradesApp/src/test/java/repositories/studentiTest.txt");
+    InFileRepository<Integer, Student> repo = new StudentFileRepository(val, "C:/Users/Flore/Desktop/info18/MAP/GradesApp/src/test/java/repositories/studentiTest.txt");
 
     @Test
     public void testParseLine() {    //citirea corecta din fisier
@@ -22,7 +22,7 @@ class StudentFileRepositoryTest {
         Student s = new Student("nume", "prenume", 555, "some@scs.ubbcluj.ro", "cineva");
         s.setId(7777);
         assertNull(repo.save(s));
-        InFileRepository repo2 = new StudentFileRepository(val, "C:/Users/Flore/Desktop/info18/MAP/graddle/GradesApp/src/test/java/repositories/studentiTest.txt");
+        InFileRepository repo2 = new StudentFileRepository(val, "C:/Users/Flore/Desktop/info18/MAP/GradesApp/src/test/java/repositories/studentiTest.txt");
         assertNotNull(repo2.findOne(7777));
         repo.delete(7777);
     }

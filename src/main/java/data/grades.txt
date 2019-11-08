@@ -1,5 +1,7 @@
-1113_as1;prof4;7.0;5;changed my mind;03-11-2019
+1112_as2;prof5;9.0;4;omlost ok;06-11-2019
+1115_as2;prof6;8.0;4;no testing;04-11-2019
 2110_as1;prof4;10.0;5;perfect;04-11-2019
+1113_as1;prof4;7.0;5;changed my mind;03-11-2019
 1113_as5;prof5;8.5;6;exceptions unhandled;04-11-2019
 1114_as2;pror3;8.0;4;almost fine;04-11-2019
 1112_as3;rcnjnc;8.0;7;dcnndhcbd cd cvd cd;03-11-2019

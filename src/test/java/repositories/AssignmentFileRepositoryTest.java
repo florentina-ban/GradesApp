@@ -10,7 +10,7 @@ import static org.junit.jupiter.api.Assertions.*;
 class AssignmentFileRepositoryTest {
 
     private Validator<Assignment> val = new AssignmentValidator();
-    InFileRepository<String, Assignment> repo = new AssignmentFileRepository(val, "C:/Users/Flore/Desktop/info18/MAP/graddle/GradesApp/src/test/java/repositories/assignmentTest.txt");
+    InFileRepository<String, Assignment> repo = new AssignmentFileRepository(val, "C:/Users/Flore/Desktop/info18/MAP/GradesApp/src/test/java/repositories/assignmentTest.txt");
 
     @Test
     public void testParseLine() {    //citirea corecta din fisier
@@ -24,7 +24,7 @@ class AssignmentFileRepositoryTest {
         s.setStartWeek(1);
         s.setId("as56");
         assertNull(repo.save(s));
-        InFileRepository repo2 = new AssignmentFileRepository(val, "C:/Users/Flore/Desktop/info18/MAP/graddle/GradesApp/src/test/java/repositories/assignmentTest.txt");
+        InFileRepository repo2 = new AssignmentFileRepository(val, "C:/Users/Flore/Desktop/info18/MAP/GradesApp/src/test/java/repositories/assignmentTest.txt");
         assertNotNull(repo2.findOne("as56"));
         repo.delete("as56");
     }

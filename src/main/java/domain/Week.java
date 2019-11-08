@@ -54,6 +54,7 @@ public class Week {
         int month = Integer.parseInt(parts[1])-1;
         int day= Integer.parseInt(parts[0]);
         cal.set(year,month,day);
+        cal.set(Calendar.HOUR_OF_DAY,0);
         return cal;
     }
     public String getBeginning() {
