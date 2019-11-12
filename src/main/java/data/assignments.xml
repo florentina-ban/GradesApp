@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<root>
+    <assignment id="as3">
+        <description>use factory design pattern</description>
+        <startWeek>4</startWeek>
+        <deadlineWeek>7</deadlineWeek>
+    </assignment>
+    <assignment id="as2">
+        <description>work with map</description>
+        <startWeek>3</startWeek>
+        <deadlineWeek>4</deadlineWeek>
+    </assignment>
+    <assignment id="as5">
+        <description>finish the filter assignment in your app</description>
+        <startWeek>4</startWeek>
+        <deadlineWeek>7</deadlineWeek>
+    </assignment>
+    <assignment id="as4">
+        <description>start a new app</description>
+        <startWeek>4</startWeek>
+        <deadlineWeek>8</deadlineWeek>
+    </assignment>
+    <assignment id="as6">
+        <description>research indentation online</description>
+        <startWeek>5</startWeek>
+        <deadlineWeek>7</deadlineWeek>
+    </assignment>
+    <assignment id="as9">
+        <description>make a grafical interface for your application</description>
+        <startWeek>6</startWeek>
+        <deadlineWeek>10</deadlineWeek>
+    </assignment>
+    <assignment id="as8">
+        <description>get to the finish line</description>
+        <startWeek>7</startWeek>
+        <deadlineWeek>9</deadlineWeek>
+    </assignment>
+    <assignment id="as10">
+        <description>prepare yourself for the practical exam</description>
+        <startWeek>7</startWeek>
+        <deadlineWeek>13</deadlineWeek>
+    </assignment>
+    <assignment id="as1">
+        <description>work with lists</description>
+        <startWeek>2</startWeek>
+        <deadlineWeek>4</deadlineWeek>
+    </assignment>
+</root>

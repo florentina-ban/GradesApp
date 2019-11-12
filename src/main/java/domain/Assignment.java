@@ -66,14 +66,14 @@ public class Assignment extends Entity<String> {
     /**
      * @return - int - the week number when the assignment was given
      */
-    public int getStartWeek() {
+    public Integer getStartWeek() {
         return startWeek;
     }
 
     /**
      * @return - int -the week number for the assignment deadline
      */
-    public int getDeadlineWeek() {
+    public Integer getDeadlineWeek() {
         return deadlineWeek;
     }
 

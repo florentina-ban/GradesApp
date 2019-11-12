@@ -1,11 +1,9 @@
-
 import domain.Assignment;
 import domain.Grade;
 import domain.Student;
-import domain.UniversityYear;
-import repositories.AssignmentFileRepository;
-import repositories.GradeFileRepository;
-import repositories.StudentFileRepository;
+import repositories.AssignmentXmlRepository;
+import repositories.GradesXmlRepository;
+import repositories.StudentXmlRepository;
 import services.AssignmentsService;
 import services.GradesService;
 import services.StudentsService;
@@ -18,20 +16,19 @@ public class Main {
 
     public static void main(String[] args) {
 
-
-        System.out.println(UniversityYear.getInstance().getSemester().getWeek("04-11-2019"));
+        //System.out.println(UniversityYear.getInstance().getSemester().getWeek("04-11-2019"));
 
         Validator studentVal = ValidatorFactory.createValidator(Student.class);
         Validator assignmentVal = ValidatorFactory.createValidator(Assignment.class);
         Validator gradeVal = ValidatorFactory.createValidator(Grade.class);
 
-        StudentFileRepository studentFileRepository = new StudentFileRepository(studentVal, ApplicationContext.getPROPERTIES().getProperty("studentFile"));
+        StudentXmlRepository studentFileRepository = new StudentXmlRepository(studentVal, ApplicationContext.getPROPERTIES().getProperty("studentXmlFile"));
         StudentsService studentsService=new StudentsService(studentFileRepository);
 
-        AssignmentFileRepository assignmentFileRepository = new AssignmentFileRepository(assignmentVal,ApplicationContext.getPROPERTIES().getProperty("assignmentFile"));
+        AssignmentXmlRepository assignmentFileRepository = new AssignmentXmlRepository(assignmentVal,ApplicationContext.getPROPERTIES().getProperty("assignmentXmlFile"));
         AssignmentsService assignmentService = new AssignmentsService(assignmentFileRepository);
 
-        GradeFileRepository gradeFileRepository = new GradeFileRepository(gradeVal,ApplicationContext.getPROPERTIES().getProperty("gradesFile"));
+        GradesXmlRepository gradeFileRepository = new GradesXmlRepository(gradeVal,ApplicationContext.getPROPERTIES().getProperty("gradesXmlFile"));
         GradesService gradesService  = new GradesService(gradeFileRepository,studentFileRepository,assignmentFileRepository);
 
         Console console=new Console(studentsService,assignmentService,gradesService);

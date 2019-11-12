@@ -26,7 +26,7 @@ public abstract class InFileRepository<ID,E extends Entity<ID>> extends InMemory
     /**
      * citeste datele din fisier
      */
-    private void loadData(){
+    public void loadData(){
         Path path= Paths.get(fileName);
         try{
             List<String> allLines=Files.readAllLines(path);
@@ -45,7 +45,7 @@ public abstract class InFileRepository<ID,E extends Entity<ID>> extends InMemory
     /**
      * scrie in fisier cate o entitate
      */
-    private void writeToFile(){
+    public void writeToFile(){
         Path path=Paths.get(fileName);
         try {
             Files.newBufferedWriter(path, StandardOpenOption.TRUNCATE_EXISTING);
@@ -99,6 +99,10 @@ public abstract class InFileRepository<ID,E extends Entity<ID>> extends InMemory
         if (e==null)
             writeToFile();
         return e;
+    }
+
+    public String getFileName() {
+        return fileName;
     }
 
     /**

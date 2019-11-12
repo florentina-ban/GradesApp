@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<root>
+    <assignment id="as3">
+        <description>use factory design pattern</description>
+        <startWeek>4</startWeek>
+        <deadlineWeek>7</deadlineWeek>
+    </assignment>
+    <assignment id="as2">
+        <description>work with map</description>
+        <startWeek>3</startWeek>
+        <deadlineWeek>8</deadlineWeek>
+    </assignment>
+</root>

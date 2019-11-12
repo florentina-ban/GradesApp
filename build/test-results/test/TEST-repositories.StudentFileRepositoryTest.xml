@@ -1,8 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<testsuite name="repositories.StudentFileRepositoryTest" tests="2" skipped="0" failures="0" errors="0" timestamp="2019-11-08T12:19:28" hostname="DESKTOP-JGO467Q" time="0.032">
-  <properties/>
-  <testcase name="testParseLine()" classname="repositories.StudentFileRepositoryTest" time="0.013"/>
-  <testcase name="testWriteLine()" classname="repositories.StudentFileRepositoryTest" time="0.017"/>
-  <system-out><![CDATA[]]></system-out>
-  <system-err><![CDATA[]]></system-err>
-</testsuite>

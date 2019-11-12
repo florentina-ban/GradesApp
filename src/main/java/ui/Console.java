@@ -128,7 +128,7 @@ public class Console {
 
     private void removeStudent() {
         try {
-            System.out.print("Id: ");
+            System.out.println("Id: ");
             int id = Integer.parseInt(reader.readLine());
             Student student = studentsService.delete(id);
             if (student == null)
@@ -325,15 +325,19 @@ public class Console {
             switch (command) {
                 case "1":
                     System.out.println("enter group: ");
-                    int group = Integer.parseInt(reader.readLine());
-                    if (group < 1 || group > 1000) {
-                        System.out.println("invalid group");
-                        return;
+                    try {
+                        int group = Integer.parseInt(reader.readLine());
+                        if (group < 1 || group > 1000) {
+                            System.out.println("invalid group");
+                            return;
+                        }
+                        Collection<String> allStudentByGroup = studentsService.filter(group);
+                        allStudentByGroup.forEach(x -> System.out.println(x));
+                        if (allStudentByGroup.size() == 0)
+                            System.out.println("no students in group " + group);
+                    }catch (NumberFormatException e){
+                        System.out.println("group must be a number");
                     }
-                    Collection<String> allStudentByGroup = studentsService.filter(group);
-                    allStudentByGroup.forEach(x -> System.out.println(x));
-                    if (allStudentByGroup.size()==0)
-                        System.out.println("no students in group "+group);
                     break;
                 case "2":
                     System.out.println("enter assignment: ");

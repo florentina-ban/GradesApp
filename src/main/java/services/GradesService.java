@@ -1,14 +1,9 @@
 package services;
 
-import domain.Grade;
-import domain.GradeDto;
-import domain.Student;
-import domain.UniversityYear;
+import domain.*;
 import exceptions.GradeException;
 import org.json.simple.JSONObject;
-import repositories.AssignmentFileRepository;
-import repositories.CrudRepository;
-import repositories.StudentFileRepository;
+import repositories.*;
 import services.config.ApplicationContext;
 import utils.Constants;
 
@@ -22,8 +17,8 @@ import java.util.function.Predicate;
 import java.util.stream.Collectors;
 
 public class GradesService extends SuperService<String,Grade>{
-    private StudentFileRepository studentFileRepository;
-    private AssignmentFileRepository assignmentFileRepository;
+    private CrudRepository<Integer,Student> studentFileRepository;
+    private CrudRepository<String, Assignment> assignmentFileRepository;
 
     /**
      * Constructor
@@ -31,7 +26,7 @@ public class GradesService extends SuperService<String,Grade>{
      * @param assignmentFileRepository - AssignmentFileRepositoryObject
      */
 
-    public GradesService(CrudRepository repository, StudentFileRepository studentFileRepository, AssignmentFileRepository assignmentFileRepository) {
+    public GradesService(CrudRepository repository, CrudRepository<Integer,Student> studentFileRepository, CrudRepository<String,Assignment> assignmentFileRepository) {
         super(repository);
         this.studentFileRepository = studentFileRepository;
         this.assignmentFileRepository = assignmentFileRepository;

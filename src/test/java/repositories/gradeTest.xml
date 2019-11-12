@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<root>
+    <grade id="1113_as2">
+        <professor>prof4</professor>
+        <givenGrade>7.0</givenGrade>
+        <deadline>8</deadline>
+        <feedback>need to make some changes</feedback>
+        <date>12-11-2019</date>
+    </grade>
+    <grade id="1113_as3">
+        <professor>prof4</professor>
+        <givenGrade>10.0</givenGrade>
+        <deadline>7</deadline>
+        <feedback>perfect</feedback>
+        <date>04-11-2019</date>
+    </grade>
+    <grade id="1112_as2">
+        <professor>prof5</professor>
+        <givenGrade>8.5</givenGrade>
+        <deadline>7</deadline>
+        <feedback>perfect</feedback>
+        <date>04-11-2019</date>
+    </grade>
+</root>

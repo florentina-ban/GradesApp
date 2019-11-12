@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<root>
+    <student id="1112">
+        <sirName>Ionescu</sirName>
+        <name>Petru</name>
+        <group>212</group>
+        <email>ione@scs.ubbcluj.ro</email>
+        <laboratoryGuide>prof3</laboratoryGuide>
+    </student>
+    <student id="1113">
+        <sirName>Georgescu</sirName>
+        <name>Geta</name>
+        <group>212</group>
+        <email>geta@scs.ubbcluj.ro</email>
+        <laboratoryGuide>prof3</laboratoryGuide>
+    </student>
+    <student id="2121">
+        <sirName>Ban</sirName>
+        <name>Flore</name>
+        <group>221</group>
+        <email>shx@scs.ubbcluj.ro</email>
+        <laboratoryGuide>prof2</laboratoryGuide>
+    </student>
+    <student id="1114">
+        <sirName>Codescu</sirName>
+        <name>Ana</name>
+        <group>213</group>
+        <email>bla@scs.ubbcluj.ro</email>
+        <laboratoryGuide>prof3</laboratoryGuide>
+    </student>
+    <student id="1211">
+        <sirName>Pop</sirName>
+        <name>Emil</name>
+        <group>222</group>
+        <email>popscs@scs.ubbcluj.ro</email>
+        <laboratoryGuide>prof1</laboratoryGuide>
+    </student>
+    <student id="1115">
+        <sirName>Ipatescu</sirName>
+        <name>Vasile</name>
+        <group>213</group>
+        <email>sxxgs@scs.ubbcluj.ro</email>
+        <laboratoryGuide>prof2</laboratoryGuide>
+    </student>
+    <student id="1116">
+        <sirName>Vacarescu</sirName>
+        <name>Ioana</name>
+        <group>212</group>
+        <email>vaca@scs.ubbcluj.ro</email>
+        <laboratoryGuide>prof2</laboratoryGuide>
+    </student>
+    <student id="1118">
+        <sirName>Albulescu</sirName>
+        <name>Dumitru</name>
+        <group>221</group>
+        <email>albu@scs.ubbcluj.ro</email>
+        <laboratoryGuide>prof4</laboratoryGuide>
+    </student>
+    <student id="2110">
+        <sirName>Stanomirescu</sirName>
+        <name>Mara</name>
+        <group>223</group>
+        <email>stano@scs.ubbcluj.ro</email>
+        <laboratoryGuide>prof4</laboratoryGuide>
+    </student>
+    <student id="1119">
+        <sirName>Valea</sirName>
+        <name>Vasile</name>
+        <group>221</group>
+        <email>val@scs.ubbcluj.ro</email>
+        <laboratoryGuide>prof2</laboratoryGuide>
+    </student>
+</root>

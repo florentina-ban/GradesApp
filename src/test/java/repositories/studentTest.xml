@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<root>
+    <student id="1112">
+        <sirName>Ionescu</sirName>
+        <name>Petru</name>
+        <group>212</group>
+        <email>ione@scs.ubbcluj.ro</email>
+        <laboratoryGuide>prof3</laboratoryGuide>
+    </student>
+    <student id="1113">
+        <sirName>Georgescu</sirName>
+        <name>Geta</name>
+        <group>213</group>
+        <email>geta@scs.ubbcluj.ro</email>
+        <laboratoryGuide>prof3</laboratoryGuide>
+    </student>
+</root>
