@@ -112,7 +112,9 @@ public class Console {
             String email = reader.readLine();
             System.out.println("Guide Teacher: ");
             String teacher = reader.readLine();
-            Student s = studentsService.update(id, sirName, name, group, email, teacher);
+            Student student=new Student(sirName,name,group,email,teacher);
+            student.setId(id);
+            Student s = studentsService.update(student);
             if (s == null)
                 System.out.println("student updated");
             else

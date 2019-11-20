@@ -10,6 +10,7 @@ public class Config {
     public static Properties getProperties() {
         Properties properties=new Properties();
         try {
+            //System.out.println(CONFIG_LOCATION);
             properties.load(new FileReader(CONFIG_LOCATION));
             return properties;
         } catch (IOException e) {

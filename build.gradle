@@ -1,5 +1,8 @@
 plugins {
     id 'java'
+    id 'org.openjfx.javafxplugin' version '0.0.8'
+    id 'application'
+
 }
 
 group 'grades'
@@ -22,4 +25,7 @@ dependencies {
 test {
     useJUnitPlatform()
 }
-// https://mvnrepository.com/artifact/org.json/json
+javafx {
+    version = "11.0.2"
+    modules = [ 'javafx.controls' , 'javafx.fxml']
+}

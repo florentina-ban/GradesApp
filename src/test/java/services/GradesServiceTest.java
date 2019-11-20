@@ -16,7 +16,7 @@ import static org.junit.jupiter.api.Assertions.*;
 
 class GradesServiceTest {
     @Test
-    void filterByAssignment() {
+    void filterByAssignmentNoStudents() {
         StudentValidator studentValidator = new StudentValidator();
         CrudRepository<Integer, Student> studentRepo = new StudentXmlRepository(studentValidator, "C:\\Users\\Flore\\Desktop\\info18\\MAP\\GradesApp\\src\\test\\java\\repositories\\studentTest.xml");
 
@@ -28,11 +28,25 @@ class GradesServiceTest {
 
         GradesService service=new GradesService(gradesRepo,studentRepo,assignmentRepo);
         assertTrue(service.filterGradesByAssign("as101").size()==0);
-        assertTrue(service.filterGradesByAssign("as2").size()==2);
-
     }
+
     @Test
-    void filterByAssignmentAndProf() {
+    void filterByAssignmentWithStudents() {
+        StudentValidator studentValidator = new StudentValidator();
+        CrudRepository<Integer, Student> studentRepo = new StudentXmlRepository(studentValidator, "C:\\Users\\Flore\\Desktop\\info18\\MAP\\GradesApp\\src\\test\\java\\repositories\\studentTest.xml");
+
+        AssignmentValidator assignmentValidator = new AssignmentValidator();
+        CrudRepository<String, Assignment> assignmentRepo = new AssignmentXmlRepository(assignmentValidator, "C:\\Users\\Flore\\Desktop\\info18\\MAP\\GradesApp\\src\\test\\java\\repositories\\assignmentTest.xml");
+
+        GradeValidator validator = new GradeValidator();
+        CrudRepository<String, Grade> gradesRepo = new GradesXmlRepository(validator, "C:\\Users\\Flore\\Desktop\\info18\\MAP\\GradesApp\\src\\test\\java\\repositories\\gradeTest.xml");
+
+        GradesService service=new GradesService(gradesRepo,studentRepo,assignmentRepo);
+        assertTrue(service.filterGradesByAssign("as2").size()==2);
+    }
+
+    @Test
+    void filterByAssignmentAndProfNoStudents() {
         StudentValidator studentValidator = new StudentValidator();
         CrudRepository<Integer, Student> studentRepo = new StudentXmlRepository(studentValidator, "C:\\Users\\Flore\\Desktop\\info18\\MAP\\GradesApp\\src\\test\\java\\repositories\\studentTest.xml");
 
@@ -45,10 +59,22 @@ class GradesServiceTest {
         GradesService service=new GradesService(gradesRepo,studentRepo,assignmentRepo);
         assertTrue(service.filterGradesByAssignProf("as101","prof1").size()==0);
         assertTrue(service.filterGradesByAssignProf("as2","prof1").size()==0);
+    }
+    void filterByAssignmentAndProfWithStudents() {
+        StudentValidator studentValidator = new StudentValidator();
+        CrudRepository<Integer, Student> studentRepo = new StudentXmlRepository(studentValidator, "C:\\Users\\Flore\\Desktop\\info18\\MAP\\GradesApp\\src\\test\\java\\repositories\\studentTest.xml");
+
+        AssignmentValidator assignmentValidator = new AssignmentValidator();
+        CrudRepository<String, Assignment> assignmentRepo = new AssignmentXmlRepository(assignmentValidator, "C:\\Users\\Flore\\Desktop\\info18\\MAP\\GradesApp\\src\\test\\java\\repositories\\assignmentTest.xml");
+
+        GradeValidator validator = new GradeValidator();
+        CrudRepository<String, Grade> gradesRepo = new GradesXmlRepository(validator, "C:\\Users\\Flore\\Desktop\\info18\\MAP\\GradesApp\\src\\test\\java\\repositories\\gradeTest.xml");
+
+        GradesService service=new GradesService(gradesRepo,studentRepo,assignmentRepo);
         assertTrue(service.filterGradesByAssignProf("as2","prof4").size()==1);
     }
     @Test
-    void filterByAssignmentAndWeek() {
+    void filterByAssignmentAndWeekNoStudents() {
         StudentValidator studentValidator = new StudentValidator();
         CrudRepository<Integer, Student> studentRepo = new StudentXmlRepository(studentValidator, "C:\\Users\\Flore\\Desktop\\info18\\MAP\\GradesApp\\src\\test\\java\\repositories\\studentTest.xml");
 
@@ -61,6 +87,18 @@ class GradesServiceTest {
         GradesService service=new GradesService(gradesRepo,studentRepo,assignmentRepo);
         assertTrue(service.filterGradesByAssignWeek("as101",8).size()==0);
         assertTrue(service.filterGradesByAssignWeek("as2",14).size()==0);
+    }
+    void filterByAssignmentAndWeeksWithSudents() {
+        StudentValidator studentValidator = new StudentValidator();
+        CrudRepository<Integer, Student> studentRepo = new StudentXmlRepository(studentValidator, "C:\\Users\\Flore\\Desktop\\info18\\MAP\\GradesApp\\src\\test\\java\\repositories\\studentTest.xml");
+
+        AssignmentValidator assignmentValidator = new AssignmentValidator();
+        CrudRepository<String, Assignment> assignmentRepo = new AssignmentXmlRepository(assignmentValidator, "C:\\Users\\Flore\\Desktop\\info18\\MAP\\GradesApp\\src\\test\\java\\repositories\\assignmentTest.xml");
+
+        GradeValidator validator = new GradeValidator();
+        CrudRepository<String, Grade> gradesRepo = new GradesXmlRepository(validator, "C:\\Users\\Flore\\Desktop\\info18\\MAP\\GradesApp\\src\\test\\java\\repositories\\gradeTest.xml");
+
+        GradesService service=new GradesService(gradesRepo,studentRepo,assignmentRepo);
         assertTrue(service.filterGradesByAssignWeek("as2",6).size()==1);
     }
 }

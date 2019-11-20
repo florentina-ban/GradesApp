@@ -30,15 +30,13 @@ public class StudentsService extends SuperService<Integer, Student> {
         }
         return returnValue;
     }
-    public Student update(int id,String sirName,String name, int group, String email,String labguide){
-        Student student=new Student(sirName,name,group,email,labguide);
-        student.setId(id);
-        Student oldStud=repository.findOne(id);
+    public Student update(Student student){
+        Student oldStud=repository.findOne(student.getId());
         Student returnValue = repository.update(student);
         //renaming the file if necesary
-        if (returnValue == null && ( oldStud.getSirName().compareTo(sirName)!=0 || oldStud.getName().compareTo(name)!=0) ){
+        if (returnValue == null && ( oldStud.getSirName().compareTo(student.getSirName())!=0 || oldStud.getName().compareTo(student.getName())!=0) ){
             String oldFileName=ApplicationContext.getPROPERTIES().getProperty("dataPath")+oldStud.getSirName()+oldStud.getName()+".json";
-            String newFileName=ApplicationContext.getPROPERTIES().getProperty("dataPath")+sirName+name+".json";
+            String newFileName=ApplicationContext.getPROPERTIES().getProperty("dataPath")+student.getSirName()+student.getName()+".json";
             File oldFile=new File(oldFileName);
             File newFile=new File(newFileName);
             oldFile.renameTo(newFile);
