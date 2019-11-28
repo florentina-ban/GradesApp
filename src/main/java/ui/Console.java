@@ -66,8 +66,10 @@ public class Console {
             String email = reader.readLine();
             System.out.println("Guide Teacher: ");
             String teacher = reader.readLine();
-            Student s = studentsService.save(id, sirName, name, group, email, teacher);
-            if (s == null)
+            Student s=new Student(sirName,name,group,email,teacher);
+            s.setId(id);
+            Student returnedValue = studentsService.save(s);
+            if (returnedValue == null)
                 System.out.println("Student saved");
             else
                 System.out.println("Student already exists");
@@ -163,7 +165,9 @@ public class Console {
             String description = reader.readLine();
             System.out.println("deadline week: ");
             int deadline = Integer.parseInt(reader.readLine());
-            Assignment as = assignmentsService.save(id, description, deadline);
+            Assignment assignment=new Assignment(description,deadline);
+            assignment.setId(id);
+            Assignment as = assignmentsService.save(assignment);
             if (as != null)
                 System.out.println("assignment already exists");
             else
@@ -203,7 +207,9 @@ public class Console {
             String description = reader.readLine();
             System.out.println("deadline week: ");
             int deadline = Integer.parseInt(reader.readLine());
-            if (assignmentsService.update(id, description, deadline) == null)
+            Assignment assignment=new Assignment(description,deadline);
+            assignment.setId(id);
+            if (assignmentsService.update(assignment) == null)
                 System.out.println("assignment updated");
             else
                 System.out.println("assignment not found");

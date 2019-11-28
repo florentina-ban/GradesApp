@@ -7,8 +7,9 @@
 <?import javafx.scene.layout.ColumnConstraints?>
 <?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="380.0" prefWidth="340.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="380.0" prefWidth="340.0" style="-fx-background-image: url(green2.jpg)" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
    <children>
       <GridPane layoutX="10.0" layoutY="10.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="300.0" prefWidth="300.0" AnchorPane.leftAnchor="20.0" AnchorPane.topAnchor="20.0">
          <columnConstraints>
@@ -25,22 +26,46 @@
             <RowConstraints maxHeight="-Infinity" minHeight="10.0" prefHeight="50.0" valignment="CENTER" vgrow="SOMETIMES" />
          </rowConstraints>
          <children>
-            <Label text="Student Id" />
-            <Label text="Last Name" GridPane.rowIndex="1" />
-            <Label text="First Name" GridPane.rowIndex="2" />
-            <Label text="Group" GridPane.rowIndex="3" />
-            <Label text="Email" GridPane.rowIndex="4" />
-            <Label text="Laboratory Guide" GridPane.rowIndex="5" />
-            <TextField fx:id="textFieldIdAdd" maxWidth="-Infinity" minWidth="-Infinity" prefWidth="150.0" GridPane.columnIndex="1" />
-            <TextField fx:id="textFieldSirNameAdd" GridPane.columnIndex="1" GridPane.rowIndex="1" />
-            <TextField fx:id="textFieldNameAdd" GridPane.columnIndex="1" GridPane.rowIndex="2" />
-            <TextField fx:id="textFieldGroupAdd" GridPane.columnIndex="1" GridPane.rowIndex="3" />
-            <TextField fx:id="textFieldEmailAdd" GridPane.columnIndex="1" GridPane.rowIndex="4" />
-            <TextField fx:id="textFieldLabGuideAdd" GridPane.columnIndex="1" GridPane.rowIndex="5" />
-            <Button maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" prefHeight="35.0" prefWidth="145.0" text="Add" GridPane.rowIndex="6" />
-            <Button mnemonicParsing="false" onAction="#handleAddCancelButton" prefHeight="35.0" prefWidth="145.0" text="Cancel" GridPane.columnIndex="1" GridPane.halignment="RIGHT" GridPane.rowIndex="6" />
+            <Label text="Student Id">
+               <font>
+                  <Font name="System Bold" size="12.0" />
+               </font></Label>
+            <Label text="Last Name" GridPane.rowIndex="1">
+               <font>
+                  <Font name="System Bold" size="12.0" />
+               </font></Label>
+            <Label text="First Name" GridPane.rowIndex="2">
+               <font>
+                  <Font name="System Bold" size="12.0" />
+               </font></Label>
+            <Label text="Group" GridPane.rowIndex="3">
+               <font>
+                  <Font name="System Bold" size="12.0" />
+               </font></Label>
+            <Label text="Email" GridPane.rowIndex="4">
+               <font>
+                  <Font name="System Bold" size="12.0" />
+               </font></Label>
+            <Label text="Laboratory Guide" GridPane.rowIndex="5">
+               <font>
+                  <Font name="System Bold" size="12.0" />
+               </font></Label>
+            <TextField fx:id="textFieldIdAdd" maxWidth="-Infinity" minWidth="-Infinity" prefWidth="150.0" style="-fx-background-color: #abeba0;" GridPane.columnIndex="1" />
+            <TextField fx:id="textFieldSirNameAdd" style="-fx-background-color: #abeba0;" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+            <TextField fx:id="textFieldNameAdd" style="-fx-background-color: #abeba0;" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+            <TextField fx:id="textFieldGroupAdd" style="-fx-background-color: #abeba0;" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+            <TextField fx:id="textFieldEmailAdd" style="-fx-background-color: #abeba0;" GridPane.columnIndex="1" GridPane.rowIndex="4" />
+            <TextField fx:id="textFieldLabGuideAdd" style="-fx-background-color: #abeba0;" GridPane.columnIndex="1" GridPane.rowIndex="5" />
+            <Button maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#handleRealAddButton" prefHeight="35.0" prefWidth="145.0" style="-fx-background-color: #8bd6d2;" text="Add" GridPane.rowIndex="6">
+               <font>
+                  <Font name="System Bold" size="12.0" />
+               </font></Button>
+            <Button mnemonicParsing="false" onAction="#handleAddCancelButton" prefHeight="35.0" prefWidth="145.0" style="-fx-background-color: #8bd6d2;" text="Cancel" GridPane.columnIndex="1" GridPane.halignment="RIGHT" GridPane.rowIndex="6">
+               <font>
+                  <Font name="System Bold" size="12.0" />
+               </font></Button>
          </children>
       </GridPane>
-      <TextField fx:id="textFieldMessageAdd" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="35.0" prefWidth="320.0" AnchorPane.bottomAnchor="20.0" AnchorPane.leftAnchor="10.0" />
+      <TextField fx:id="textFieldMessageAdd" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="35.0" prefWidth="320.0" style="-fx-text-fill: red; -fx-background-color: #abeba0;" AnchorPane.bottomAnchor="20.0" AnchorPane.leftAnchor="10.0" />
    </children>
 </AnchorPane>

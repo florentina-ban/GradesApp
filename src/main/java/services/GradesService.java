@@ -3,7 +3,7 @@ package services;
 import domain.*;
 import exceptions.GradeException;
 import org.json.simple.JSONObject;
-import repositories.*;
+import repositories.CrudRepository;
 import services.config.ApplicationContext;
 import utils.Constants;
 
@@ -158,7 +158,7 @@ public class GradesService extends SuperService<String,Grade>{
                 .filter(assignPred)
                 .map(x->{
                     Student s = studentFileRepository.findOne(x.getStudentId());
-                    return new GradeDto(s.getHoleName(),x.getAssignmentId(),x.getFinalGrade(),x.getProfessor());
+                    return new GradeDto(s.getHoleName(),x.getAssignmentId(),x.getFinalGrade(),x.getProfessor(),x.getStudentId());
                 })
                 .collect(Collectors.toList());
         return allGradesDto;
@@ -172,7 +172,7 @@ public class GradesService extends SuperService<String,Grade>{
                 .filter(assignPred.and(profPred))
                 .map(x->{
                     Student s = studentFileRepository.findOne(x.getStudentId());
-                    return new GradeDto(s.getHoleName(),x.getAssignmentId(),x.getFinalGrade(),x.getProfessor());
+                    return new GradeDto(s.getHoleName(),x.getAssignmentId(),x.getFinalGrade(),x.getProfessor(),x.getStudentId());
                 })
                 .collect(Collectors.toList());
         return allGradesDto;
@@ -192,10 +192,24 @@ public class GradesService extends SuperService<String,Grade>{
                 .filter(assignPred.and(weekPred))
                 .map(x->{
                     Student s = studentFileRepository.findOne(x.getStudentId());
-                    return new GradeDto(s.getHoleName(),x.getAssignmentId(),x.getFinalGrade(),x.getProfessor());
+                    return new GradeDto(s.getHoleName(),x.getAssignmentId(),x.getFinalGrade(),x.getProfessor(),x.getStudentId());
                 })
                 .collect(Collectors.toList());
         return allGradesDto;
     }
 
+    public List<GradeDto> getAllGradeDtos() {
+        Collection<Grade> allGrades=(List<Grade>)repository.findAll();
+        List<GradeDto> allGradesDto = allGrades.stream()
+                .map(x->{
+                    Student s = studentFileRepository.findOne(x.getStudentId());
+                    return new GradeDto(s.getHoleName(),x.getAssignmentId(),x.getFinalGrade(),x.getProfessor(),x.getStudentId());
+                })
+                .collect(Collectors.toList());
+
+        return allGradesDto;
+    }
+    public Student getStudent(Integer studentId){
+        return studentFileRepository.findOne(studentId);
+    }
 }

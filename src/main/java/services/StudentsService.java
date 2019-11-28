@@ -1,5 +1,6 @@
 package services;
 
+import Events.CustomEvent;
 import domain.Student;
 import repositories.CrudRepository;
 import services.config.ApplicationContext;
@@ -10,13 +11,12 @@ import java.util.Collection;
 import java.util.List;
 import java.util.stream.Collectors;
 
-public class StudentsService extends SuperService<Integer, Student> {
+public class StudentsService extends SuperService<Integer, Student>{
+
     public StudentsService(CrudRepository repository) {
         super(repository);
     }
-    public Student save(int id,String sirName,String name, int group, String email,String labguide){
-        Student student=new Student(sirName,name,group,email,labguide);
-        student.setId(id);
+    public Student save(Student student){
         Student returnValue = repository.save(student);
         //creating a json file
         if (returnValue==null) {
@@ -28,6 +28,7 @@ public class StudentsService extends SuperService<Integer, Student> {
                 e.printStackTrace();
             }
         }
+        super.notifyObservers(new CustomEvent());
         return returnValue;
     }
     public Student update(Student student){
@@ -41,6 +42,7 @@ public class StudentsService extends SuperService<Integer, Student> {
             File newFile=new File(newFileName);
             oldFile.renameTo(newFile);
         }
+        super.notifyObservers(new CustomEvent());
         return returnValue;
     }
     public List<String> filter(int group) {
@@ -51,4 +53,6 @@ public class StudentsService extends SuperService<Integer, Student> {
                 .collect(Collectors.toList());
         return  studentsByGroup;
     }
+
+
 }

@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.geometry.Insets?>
+<?import javafx.scene.Cursor?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.Menu?>
@@ -17,29 +18,34 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
 
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="1000.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="StudentController">
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="1000.0" style="-fx-background-image: url(green2.jpg)" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="StudentController">
    <top>
       <MenuBar BorderPane.alignment="CENTER">
         <menus>
           <Menu mnemonicParsing="false" text="Open">
             <items>
               <MenuItem mnemonicParsing="false" text="Students" />
-                  <MenuItem mnemonicParsing="false" text="Assignments" />
+                  <MenuItem mnemonicParsing="false" onAction="#handleGoAssignments" text="Assignments" />
                   <MenuItem mnemonicParsing="false" text="Grades" />
+                  <MenuItem mnemonicParsing="false" onAction="#handleGetBack" text="Go to main page" />
+                  <MenuItem mnemonicParsing="false" onAction="#handleExit" text="Exit" />
             </items>
           </Menu>
           <Menu mnemonicParsing="false" text="Help">
             <items>
               <MenuItem mnemonicParsing="false" text="About" />
-                  <MenuItem mnemonicParsing="false" text="About" />
             </items>
           </Menu>
         </menus>
+         <padding>
+            <Insets bottom="5.0" top="5.0" />
+         </padding>
       </MenuBar>
    </top>
    <bottom>
-      <TextArea fx:id="messageTextArea" editable="false" prefHeight="19.0" prefWidth="600.0" BorderPane.alignment="CENTER" />
+      <TextArea fx:id="messageTextArea" editable="false" prefHeight="19.0" prefWidth="600.0" style="-fx-background-color: #abeba0" BorderPane.alignment="CENTER" />
    </bottom>
    <center>
       <FlowPane onMouseClicked="#handleUnselectionForTableView" prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
@@ -49,8 +55,11 @@
                   <Insets left="10.0" />
                </FlowPane.margin>
                <children>
-                  <Label alignment="CENTER" contentDisplay="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="35.0" prefWidth="150.0" text="Filter by group" textAlignment="CENTER" />
-                  <TextField fx:id="filterTextField" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onKeyPressed="#handleFilterTextField" prefHeight="35.0" prefWidth="450.0" />
+                  <Label alignment="CENTER" contentDisplay="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="35.0" prefWidth="150.0" text="Filter by group" textAlignment="CENTER">
+                     <font>
+                        <Font name="System Bold" size="12.0" />
+                     </font></Label>
+                  <TextField fx:id="filterTextField" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="35.0" prefWidth="450.0" style="-fx-background-color: #abeba0;" />
                </children>
             </HBox>
             <HBox prefHeight="50.0" prefWidth="600.0">
@@ -59,8 +68,11 @@
                      <HBox.margin>
                         <Insets />
                      </HBox.margin>
+                     <font>
+                        <Font name="System Bold" size="12.0" />
+                     </font>
                   </Label>
-                  <TextField fx:id="searchTextField" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onKeyPressed="#handleSearchTextField" prefHeight="35.0" prefWidth="450.0">
+                  <TextField fx:id="searchTextField" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="35.0" prefWidth="450.0" style="-fx-background-color: #abeba0;">
                      <HBox.margin>
                         <Insets />
                      </HBox.margin>
@@ -74,12 +86,12 @@
                <children>
                   <TableView fx:id="studentTableView" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="350.0" prefWidth="600.0">
                     <columns>
-                        <TableColumn fx:id="idCol" prefWidth="61.60000264644623" text="Id" />
-                      <TableColumn fx:id="lastNameCol" minWidth="0.0" prefWidth="107.99997901916504" text="Last Name" />
+                        <TableColumn fx:id="idCol" prefWidth="51.200040221214294" text="Id" />
+                      <TableColumn fx:id="lastNameCol" minWidth="0.0" prefWidth="119.1999626159668" text="Last Name" />
                       <TableColumn fx:id="firstNameCol" prefWidth="115.20001220703125" text="Fist Name" />
-                        <TableColumn fx:id="groupCol" prefWidth="73.5999755859375" text="Group" />
-                        <TableColumn fx:id="emailCol" prefWidth="119.199951171875" text="Email" />
-                        <TableColumn fx:id="labGuideCol" prefWidth="118.39993286132812" text="Laboratory Guide" />
+                        <TableColumn fx:id="groupCol" prefWidth="45.5999755859375" text="Group" />
+                        <TableColumn fx:id="emailCol" prefWidth="148.800048828125" text="Email" />
+                        <TableColumn fx:id="labGuideCol" prefWidth="118.39999389648438" text="Laboratory Guide" />
                     </columns>
                      <VBox.margin>
                         <Insets left="10.0" />
@@ -87,7 +99,13 @@
                   </TableView>
                   <HBox prefHeight="100.0" prefWidth="200.0" spacing="75.0">
                      <children>
-                        <Button maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#handleDeleteButton" prefHeight="35.0" prefWidth="600.0" text="Delete" />
+                        <Button maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#handleDeleteButton" prefHeight="35.0" prefWidth="600.0" style="-fx-background-color: #8bd6d2" text="Delete">
+                           <font>
+                              <Font name="System Bold" size="12.0" />
+                           </font>
+                           <cursor>
+                              <Cursor fx:constant="HAND" />
+                           </cursor></Button>
                      </children>
                      <VBox.margin>
                         <Insets left="10.0" top="10.0" />
@@ -110,28 +128,58 @@
                   <RowConstraints maxHeight="-Infinity" minHeight="10.0" prefHeight="50.0" valignment="CENTER" vgrow="SOMETIMES" />
               </rowConstraints>
                <FlowPane.margin>
-                  <Insets left="50.0" top="-150.0" />
+                  <Insets left="50.0" top="-70.0" />
                </FlowPane.margin>
                <children>
-                  <Label text="Student Id" />
-                  <Label text="Last Name" GridPane.rowIndex="1" />
-                  <Label text="First Name" GridPane.rowIndex="2" />
-                  <Label text="Group" GridPane.rowIndex="3" />
-                  <Label text="Email" GridPane.rowIndex="4" />
-                  <Label text="Laboratory Guide" GridPane.rowIndex="5" />
-                  <TextField fx:id="textFieldId" editable="false" maxWidth="-Infinity" minWidth="-Infinity" prefWidth="150.0" GridPane.columnIndex="1" />
-                  <TextField fx:id="textFieldSirName" GridPane.columnIndex="1" GridPane.rowIndex="1" />
-                  <TextField fx:id="textFieldName" GridPane.columnIndex="1" GridPane.rowIndex="2" />
-                  <TextField fx:id="textFieldGroup" GridPane.columnIndex="1" GridPane.rowIndex="3" />
-                  <TextField fx:id="textFieldEmail" GridPane.columnIndex="1" GridPane.rowIndex="4" />
-                  <TextField fx:id="textFieldLabGuide" GridPane.columnIndex="1" GridPane.rowIndex="5" />
-                  <Button maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#handleModifyButton" prefHeight="35.0" prefWidth="145.0" text="Modify" GridPane.columnIndex="1" GridPane.halignment="RIGHT" GridPane.rowIndex="6" />
-                  <Button maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#handleAddNewWindow" prefHeight="35.0" prefWidth="145.0" text="Add" GridPane.rowIndex="6" />
+                  <Label text="Student Id">
+                     <font>
+                        <Font name="System Bold" size="12.0" />
+                     </font></Label>
+                  <Label text="Last Name" GridPane.rowIndex="1">
+                     <font>
+                        <Font name="System Bold" size="12.0" />
+                     </font></Label>
+                  <Label text="First Name" GridPane.rowIndex="2">
+                     <font>
+                        <Font name="System Bold" size="12.0" />
+                     </font></Label>
+                  <Label text="Group" GridPane.rowIndex="3">
+                     <font>
+                        <Font name="System Bold" size="12.0" />
+                     </font></Label>
+                  <Label text="Email" GridPane.rowIndex="4">
+                     <font>
+                        <Font name="System Bold" size="12.0" />
+                     </font></Label>
+                  <Label text="Laboratory Guide" GridPane.rowIndex="5">
+                     <font>
+                        <Font name="System Bold" size="12.0" />
+                     </font></Label>
+                  <TextField fx:id="textFieldId" editable="false" maxWidth="-Infinity" minWidth="-Infinity" prefWidth="150.0" style="-fx-background-color: #abeba0;" GridPane.columnIndex="1" />
+                  <TextField fx:id="textFieldSirName" style="-fx-background-color: #abeba0;" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                  <TextField fx:id="textFieldName" style="-fx-background-color: #abeba0;" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+                  <TextField fx:id="textFieldGroup" style="-fx-background-color: #abeba0;" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+                  <TextField fx:id="textFieldEmail" style="-fx-background-color: #abeba0;" GridPane.columnIndex="1" GridPane.rowIndex="4" />
+                  <TextField fx:id="textFieldLabGuide" style="-fx-background-color: #abeba0;" GridPane.columnIndex="1" GridPane.rowIndex="5" />
+                  <Button maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#handleModifyButton" prefHeight="35.0" prefWidth="145.0" style="-fx-background-color: #8bd6d2;" text="Modify" GridPane.columnIndex="1" GridPane.halignment="RIGHT" GridPane.rowIndex="6">
+                     <font>
+                        <Font name="System Bold" size="12.0" />
+                     </font>
+                     <cursor>
+                        <Cursor fx:constant="HAND" />
+                     </cursor></Button>
+                  <Button maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#handleAddNewWindow" prefHeight="35.0" prefWidth="145.0" style="-fx-background-color: #8bd6d2;" text="Add..." GridPane.rowIndex="6">
+                     <font>
+                        <Font name="System Bold" size="12.0" />
+                     </font>
+                     <cursor>
+                        <Cursor fx:constant="HAND" />
+                     </cursor></Button>
                </children>
             </GridPane>
          </children>
          <BorderPane.margin>
-            <Insets top="30.0" />
+            <Insets top="15.0" />
          </BorderPane.margin>
       </FlowPane>
    </center>

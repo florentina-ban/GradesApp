@@ -1,48 +1,48 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <root>
-    <assignment id="as3">
-        <description>use factory design pattern</description>
-        <startWeek>4</startWeek>
-        <deadlineWeek>7</deadlineWeek>
-    </assignment>
-    <assignment id="as2">
+    <assignment id="assignment2">
         <description>work with map</description>
-        <startWeek>3</startWeek>
+        <startWeek>2</startWeek>
         <deadlineWeek>4</deadlineWeek>
     </assignment>
-    <assignment id="as5">
-        <description>finish the filter assignment in your app</description>
-        <startWeek>4</startWeek>
-        <deadlineWeek>7</deadlineWeek>
+    <assignment id="assignment1">
+        <description>use factory design pattern</description>
+        <startWeek>1</startWeek>
+        <deadlineWeek>3</deadlineWeek>
     </assignment>
-    <assignment id="as4">
+    <assignment id="assignment4">
         <description>start a new app</description>
         <startWeek>4</startWeek>
-        <deadlineWeek>8</deadlineWeek>
+        <deadlineWeek>6</deadlineWeek>
     </assignment>
-    <assignment id="as6">
-        <description>research indentation online</description>
-        <startWeek>5</startWeek>
-        <deadlineWeek>7</deadlineWeek>
+    <assignment id="assignment3">
+        <description>finish the filter assignment in your app</description>
+        <startWeek>3</startWeek>
+        <deadlineWeek>5</deadlineWeek>
     </assignment>
-    <assignment id="as9">
-        <description>make a grafical interface for your application</description>
-        <startWeek>6</startWeek>
-        <deadlineWeek>10</deadlineWeek>
+    <assignment id="assignment9">
+        <description>work with lists</description>
+        <startWeek>10</startWeek>
+        <deadlineWeek>12</deadlineWeek>
     </assignment>
-    <assignment id="as8">
+    <assignment id="assignment6">
         <description>get to the finish line</description>
         <startWeek>7</startWeek>
         <deadlineWeek>9</deadlineWeek>
     </assignment>
-    <assignment id="as10">
-        <description>prepare yourself for the practical exam</description>
-        <startWeek>7</startWeek>
-        <deadlineWeek>13</deadlineWeek>
+    <assignment id="assignment5">
+        <description>research indentation online</description>
+        <startWeek>5</startWeek>
+        <deadlineWeek>7</deadlineWeek>
     </assignment>
-    <assignment id="as1">
+    <assignment id="assignment8">
         <description>work with lists</description>
-        <startWeek>2</startWeek>
-        <deadlineWeek>4</deadlineWeek>
+        <startWeek>9</startWeek>
+        <deadlineWeek>11</deadlineWeek>
+    </assignment>
+    <assignment id="assignment7">
+        <description>prepare for the practical exam</description>
+        <startWeek>8</startWeek>
+        <deadlineWeek>10</deadlineWeek>
     </assignment>
 </root>

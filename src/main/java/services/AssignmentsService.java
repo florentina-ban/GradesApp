@@ -7,14 +7,10 @@ public class AssignmentsService extends SuperService<String, Assignment> {
     public AssignmentsService(CrudRepository repository) {
         super(repository);
     }
-    public Assignment save(String id,String description,int deadlineWeek){
-        Assignment assignment=new Assignment(description,deadlineWeek);
-        assignment.setId(id);
+    public Assignment save(Assignment assignment){
         return repository.save(assignment);
     }
-    public Assignment update(String id,String description,int deadlineWeek){
-        Assignment assignment=new Assignment(description,deadlineWeek);
-        assignment.setId(id);
+    public Assignment update(Assignment assignment){
         return repository.update(assignment);
     }
 

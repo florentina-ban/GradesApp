@@ -1,59 +1,52 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <root>
-    <grade id="1113_as1">
-        <professor>prof4</professor>
-        <givenGrade>7.0</givenGrade>
-        <deadline>4</deadline>
-        <feedback>need to make some changes</feedback>
-        <date>12-11-2019</date>
-    </grade>
-    <grade id="2110_as1">
-        <professor>prof4</professor>
-        <givenGrade>10.0</givenGrade>
-        <deadline>4</deadline>
-        <feedback>perfect</feedback>
-        <date>04-11-2019</date>
-    </grade>
-    <grade id="1113_as5">
-        <professor>prof5</professor>
-        <givenGrade>8.5</givenGrade>
-        <deadline>4</deadline>
-        <feedback>exceptions unhadled</feedback>
-        <date>12-11-2019</date>
-    </grade>
-    <grade id="1114_as2">
-        <professor>prof3</professor>
-        <givenGrade>8.0</givenGrade>
-        <deadline>4</deadline>
-        <feedback>almost fine</feedback>
-        <date>04-11-2019</date>
-    </grade>
-    <grade id="1112_as3">
-        <professor>prof3</professor>
-        <givenGrade>8.0</givenGrade>
-        <deadline>7</deadline>
-        <feedback>application without updates</feedback>
-        <date>03-11-2019</date>
-    </grade>
-    <grade id="1113_as4">
+    <grade id="1113_assignment4">
         <professor>prof5</professor>
         <givenGrade>8.0</givenGrade>
         <deadline>8</deadline>
         <feedback>attributes must be private</feedback>
         <date>03-11-2019</date>
     </grade>
-    <grade id="1112_as2">
+    <grade id="1112_assignment2">
         <professor>prof5</professor>
         <givenGrade>9.0</givenGrade>
         <deadline>4</deadline>
         <feedback>almost ok</feedback>
         <date>06-11-2019</date>
     </grade>
-    <grade id="1115_as2">
+    <grade id="1113_assignment5">
+        <professor>prof5</professor>
+        <givenGrade>8.5</givenGrade>
+        <deadline>4</deadline>
+        <feedback>exceptions unhadled</feedback>
+        <date>12-11-2019</date>
+    </grade>
+    <grade id="1114_assignment2">
+        <professor>prof3</professor>
+        <givenGrade>8.0</givenGrade>
+        <deadline>4</deadline>
+        <feedback>almost fine</feedback>
+        <date>04-11-2019</date>
+    </grade>
+    <grade id="1131_assignment2">
         <professor>prof6</professor>
         <givenGrade>8.5</givenGrade>
         <deadline>4</deadline>
         <feedback>no testing</feedback>
         <date>04-11-2019</date>
+    </grade>
+    <grade id="1113_assignment1">
+        <professor>prof4</professor>
+        <givenGrade>10.0</givenGrade>
+        <deadline>4</deadline>
+        <feedback>perfect</feedback>
+        <date>04-11-2019</date>
+    </grade>
+    <grade id="1112_assignment3">
+        <professor>prof3</professor>
+        <givenGrade>8.0</givenGrade>
+        <deadline>7</deadline>
+        <feedback>application without updates</feedback>
+        <date>03-11-2019</date>
     </grade>
 </root>

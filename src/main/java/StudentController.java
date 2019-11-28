@@ -1,3 +1,4 @@
+import Events.CustomEvent;
 import domain.Student;
 import exceptions.ValidationException;
 import javafx.collections.FXCollections;
@@ -11,14 +12,16 @@ import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Stage;
+import services.Observer;
 import services.StudentsService;
 
 import java.io.IOException;
-import java.util.Collection;
 import java.util.List;
+import java.util.function.Predicate;
 import java.util.stream.Collectors;
 
-public class StudentController {
+public class StudentController implements Observer<CustomEvent> {
+    MainControler mainControler;
     StudentsService studentsService;
     ObservableList<Student> studentsModel= FXCollections.observableArrayList();
 
@@ -46,102 +49,68 @@ public class StudentController {
     @FXML TextField textFieldLabGuideAdd;
     @FXML TextField textFieldMessageAdd;
 
+
     @FXML
-    public void initialize(){
+    public void initialize() {
         idCol.setCellValueFactory(new PropertyValueFactory<Student, Integer>("id"));
         firstNameCol.setCellValueFactory(new PropertyValueFactory<Student, String>("name"));
-        lastNameCol.setCellValueFactory(new PropertyValueFactory<Student,String>("sirName"));
+        lastNameCol.setCellValueFactory(new PropertyValueFactory<Student, String>("sirName"));
         groupCol.setCellValueFactory(new PropertyValueFactory<Student, Integer>("group"));
-        emailCol.setCellValueFactory(new PropertyValueFactory<Student,String>("email"));
-        labGuideCol.setCellValueFactory(new PropertyValueFactory<Student,String>("laboratoryGuide"));
+        emailCol.setCellValueFactory(new PropertyValueFactory<Student, String>("email"));
+        labGuideCol.setCellValueFactory(new PropertyValueFactory<Student, String>("laboratoryGuide"));
+
+        studentTableView.getSelectionModel().getSelectedCells().addListener((ListChangeListener<TablePosition>) c -> { handleSelectedStudent();});
+        filterTextField.textProperty().addListener((observable,oldValue,newValue)->handleFilter());
+        searchTextField.textProperty().addListener((observable,oldValue,newValue)->handleFilter());
+
         studentTableView.setItems(studentsModel);
+
         handleMouseOver();
         handleSelectedStudent();
-
     }
 
-    public void handleSearchTextField(){
-        searchTextField.textProperty().addListener((observable,oldValue,newValue)->{
-            studentsModel.setAll(((List<Student>)studentsService.findAll()).stream()
-                    .filter(x->x.getSirName().toUpperCase().contains(newValue.toUpperCase()))
-                    .filter(x->{
-                        if (filterTextField.getText().length()!=0) {
-                            return x.getGroup() == Integer.parseInt(filterTextField.getText());
-                        }
-                        else
-                            return true;
-                         })
-                    .collect(Collectors.toList())
-            );
-        });
+    public void setStudentsService(StudentsService studentsService) {
+        this.studentsService = studentsService;
+        studentsModel.setAll((List<Student>) studentsService.findAll());
     }
-    public void handleFilterTextField() {
-        filterTextField.textProperty().addListener((observable,oldValue,newValue)->{
-            studentsModel.setAll(((List<Student>)studentsService.findAll()).stream()
-                    .filter(x-> {
-                        if (searchTextField.getText().length() > 0)
-                            return x.getSirName().toUpperCase().contains(searchTextField.getText().toUpperCase());
-                        else
-                            return true;
-                    })
-                    .filter(x->{
-                        if (newValue.length()!=0) {
-                            return x.getGroup() == Integer.parseInt(filterTextField.getText());
-                        }
-                        else
-                            return true;
-                    })
-                    .collect(Collectors.toList())
-            );
-        });
+
+    public void setMainControler(MainControler mainControler) {
+        this.mainControler = mainControler;
     }
+
+    public void handleFilter(){
+        Predicate<Student> searchByName=(student -> student.getSirName().toUpperCase().contains(searchTextField.getText().toUpperCase()));
+        Predicate<Student> searchByGroup=(student -> student.getGroup().toString().contains(filterTextField.getText()));
+
+        studentsModel.setAll(((List<Student>)studentsService.findAll()).stream()
+                .filter(searchByName.and(searchByGroup))
+                .collect(Collectors.toList()));
+    }
+
     public void handleUnselectionForTableView(){
         studentTableView.getSelectionModel().clearSelection();
+        messageTextArea.clear();
     }
 
     public void handleSelectedStudent() {
-        ObservableList selectedCells=studentTableView.getSelectionModel().getSelectedCells();
-        selectedCells.addListener(new ListChangeListener() {
-            @Override
-            public void onChanged(Change c) {
-                Student student=studentTableView.getSelectionModel().getSelectedItem();
-                if (student!=null) {
-                    textFieldId.setText(student.getId().toString());
-                    textFieldName.setText(student.getName());
-                    textFieldSirName.setText(student.getSirName());
-                    textFieldEmail.setText(student.getEmail());
-                    textFieldLabGuide.setText(student.getLaboratoryGuide());
-                    textFieldGroup.setText(student.getGroup().toString());
-                }
-                else {
-                    textFieldId.clear();
-                    textFieldSirName.clear();
-                    textFieldName.clear();
-                    textFieldEmail.clear();
-                    textFieldGroup.clear();
-                    textFieldLabGuide.clear();
-                }
-            }
-        });
+        Student student = studentTableView.getSelectionModel().getSelectedItem();
+        if (student != null) {
+            textFieldId.setText(student.getId().toString());
+            textFieldName.setText(student.getName());
+            textFieldSirName.setText(student.getSirName());
+            textFieldEmail.setText(student.getEmail());
+            textFieldLabGuide.setText(student.getLaboratoryGuide());
+            textFieldGroup.setText(student.getGroup().toString());
+        } else {
+            textFieldId.clear();
+            textFieldSirName.clear();
+            textFieldName.clear();
+            textFieldEmail.clear();
+            textFieldGroup.clear();
+            textFieldLabGuide.clear();
+        }
     }
-    private void updateTableView(){
-        studentsModel.setAll(((List<Student>)studentsService.findAll()).stream()
-                .filter(x-> {
-                    if (searchTextField.getText().length() > 0)
-                        return x.getSirName().toUpperCase().contains(searchTextField.getText().toUpperCase());
-                    else
-                        return true;
-                })
-                .filter(x->{
-                    if (filterTextField.getText().length()!=0) {
-                        return x.getGroup() == Integer.parseInt(filterTextField.getText());
-                    }
-                    else
-                        return true;
-                })
-                .collect(Collectors.toList())
-        );
-    }
+
     public void handleMouseOver(){
         studentTableView.setRowFactory(tableView -> {
             final TableRow<Student> row = new TableRow<>();
@@ -171,16 +140,11 @@ public class StudentController {
                     messageTextArea.setText("student not found ! ");
                 else {
                     messageTextArea.setText("student removed !");
-                    this.updateTableView();
+                    handleFilter();
                 }
             }catch (IllegalArgumentException e){
                 messageTextArea.setText(e.getMessage());
             }
-    }
-
-    public void setStudentsService(StudentsService studentsService) {
-        this.studentsService = studentsService;
-       studentsModel.setAll((Collection<Student>) studentsService.findAll());
     }
 
     public void handleModifyButton(ActionEvent actionEvent) {
@@ -195,11 +159,12 @@ public class StudentController {
             student.setId(id);
             try {
                 Student returnedValue = studentsService.update(student);
-                if (returnedValue!=null)
+                if (returnedValue==null) {
                     messageTextArea.setText("student updated");
+                    handleFilter();
+                }
                 else
                     messageTextArea.setText("student could not be found");
-                this.updateTableView();
             } catch (IllegalArgumentException e) {
                 messageTextArea.setText(e.getMessage());
             } catch (ValidationException e) {
@@ -222,5 +187,57 @@ public class StudentController {
     public void handleAddCancelButton(ActionEvent actionEvent){
         Stage stage = (Stage) textFieldIdAdd.getScene().getWindow();
         stage.close();
+    }
+    public void handleRealAddButton(ActionEvent actionEvent) {
+        try {
+            int id = Integer.parseInt(textFieldIdAdd.getText());
+            String sirName = textFieldSirNameAdd.getText();
+            String name = textFieldNameAdd.getText();
+            String email = textFieldEmailAdd.getText();
+            String labGuide = textFieldLabGuideAdd.getText();
+            int group = Integer.parseInt(textFieldGroupAdd.getText());
+            Student student = new Student(sirName, name, group, email, labGuide);
+            student.setId(id);
+            Student returnedValue = studentsService.save(student);
+            if (returnedValue == null) {
+                textFieldMessageAdd.setText("student saved");
+                studentsModel.setAll((List<Student>)studentsService.findAll());
+                textFieldIdAdd.clear();
+                textFieldSirNameAdd.clear();
+                textFieldNameAdd.clear();
+                textFieldEmailAdd.clear();
+                textFieldLabGuideAdd.clear();
+                textFieldGroupAdd.clear();
+                handleFilter();
+            }
+            else
+                textFieldMessageAdd.setText("the student already exists");
+        } catch (NumberFormatException e) {
+            textFieldMessageAdd.setText("student id and group must be numbers");
+        } catch (ValidationException e) {
+            textFieldMessageAdd.setText(e.getMessages().toString());
+        }
+
+    }
+
+    public void handleGetBack(ActionEvent actionEvent) {
+        this.mainControler.setScene("main");
+    }
+
+    @Override
+    public void update() {
+        studentsModel.setAll((List<Student>)studentsService.findAll());
+    }
+
+    public void handleGoAssignments(ActionEvent actionEvent) {
+        this.mainControler.setScene("assignments");
+    }
+
+    public void handleGoGrades(ActionEvent actionEvent) {
+        this.mainControler.setScene("grades");
+    }
+
+    public void handleExit(ActionEvent actionEvent) {
+        System.exit(0);
     }
 }

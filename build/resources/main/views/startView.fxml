@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.Cursor?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Menu?>
+<?import javafx.scene.control.MenuBar?>
+<?import javafx.scene.control.MenuItem?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.RowConstraints?>
+
+<AnchorPane prefHeight="600.0" prefWidth="1000.0" style="-fx-background-image: url(green2.jpg);" stylesheets="@../cssFiles/mainCss.css" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="MainControler">
+   <children>
+      <MenuBar layoutX="10.0" layoutY="10.0" prefWidth="1000.0" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0">
+         <menus>
+            <Menu mnemonicParsing="false" text="Open">
+               <items>
+                  <MenuItem mnemonicParsing="false" text="Students" />
+                  <MenuItem mnemonicParsing="false" text="Assignments" />
+                  <MenuItem mnemonicParsing="false" text="Grades" />
+                  <MenuItem mnemonicParsing="false" onAction="#handleCloseApp" text="Exit" />
+               </items>
+            </Menu>
+            <Menu mnemonicParsing="false" text="Help">
+               <items>
+                  <MenuItem mnemonicParsing="false" text="About" />
+               </items>
+            </Menu>
+         </menus>
+         <padding>
+            <Insets bottom="5.0" top="5.0" />
+         </padding>
+      </MenuBar>
+      <GridPane AnchorPane.leftAnchor="360.0" AnchorPane.topAnchor="170.0">
+        <columnConstraints>
+          <ColumnConstraints hgrow="SOMETIMES" maxWidth="150.0" minWidth="150.0" prefWidth="150.0" />
+          <ColumnConstraints hgrow="SOMETIMES" maxWidth="150.0" minWidth="150.0" prefWidth="150.0" />
+        </columnConstraints>
+        <rowConstraints>
+          <RowConstraints maxHeight="150.0" minHeight="150.0" prefHeight="150.0" vgrow="SOMETIMES" />
+          <RowConstraints maxHeight="150.0" minHeight="150.0" prefHeight="150.0" vgrow="SOMETIMES" />
+          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+        </rowConstraints>
+         <children>
+            <Button fx:id="studentButton" mnemonicParsing="false" onAction="#startStudents" prefHeight="140.0" prefWidth="140.0" style="-fx-background-image: url(students.png); -fx-background-size: 150px; -fx-background-repeat:no-repeat; -fx-background-position: center;">
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor></Button>
+            <Button mnemonicParsing="false" onAction="#startGrades" prefHeight="140.0" prefWidth="140.0" style="-fx-background-image: url(grade.png); -fx-background-size: 140px;" GridPane.rowIndex="1">
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor></Button>
+            <Button mnemonicParsing="false" onAction="#startAssignments" prefHeight="140.0" prefWidth="140.0" style="-fx-background-image: url(assign.png); -fx-background-size: 140px;" GridPane.columnIndex="1">
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor></Button>
+            <Button mnemonicParsing="false" onAction="#handleCloseApp" prefHeight="140.0" prefWidth="140.0" style="-fx-background-image: url(exit.png); -fx-background-size: 140px;" GridPane.columnIndex="1" GridPane.rowIndex="1">
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor></Button>
+         </children>
+      </GridPane>
+   </children>
+</AnchorPane>

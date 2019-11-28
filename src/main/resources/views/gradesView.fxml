@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.DatePicker?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Menu?>
+<?import javafx.scene.control.MenuBar?>
+<?import javafx.scene.control.MenuItem?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextArea?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane prefHeight="600.0" prefWidth="1000.0" style="-fx-background-image: url(green2.jpg);" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="GradesController">
+   <children>
+      <MenuBar layoutX="10.0" layoutY="10.0" prefWidth="1000.0" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0">
+         <menus>
+            <Menu mnemonicParsing="false" text="Open">
+               <items>
+                  <MenuItem mnemonicParsing="false" text="Students" />
+                  <MenuItem mnemonicParsing="false" text="Assignments" />
+                  <MenuItem mnemonicParsing="false" text="Grades" />
+                  <MenuItem mnemonicParsing="false" onAction="#handleGetBack" text="Go to main page" />
+                  <MenuItem mnemonicParsing="false" onAction="#handleExit" text="Exit" />
+               </items>
+            </Menu>
+            <Menu mnemonicParsing="false" text="Help">
+               <items>
+                  <MenuItem mnemonicParsing="false" text="About" />
+               </items>
+            </Menu>
+         </menus>
+         <padding>
+            <Insets bottom="5.0" top="5.0" />
+         </padding>
+      </MenuBar>
+      <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="565.0" prefWidth="400.0" AnchorPane.topAnchor="35.0">
+         <children>
+            <HBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="50.0" prefWidth="360.0" AnchorPane.leftAnchor="10.0" AnchorPane.topAnchor="100.0">
+               <children>
+                  <Label alignment="CENTER" contentDisplay="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="35.0" prefWidth="150.0" text="Filter by group" textAlignment="CENTER">
+                     <font>
+                        <Font name="System Bold" size="12.0" />
+                     </font>
+                  </Label>
+                  <TextField fx:id="filterTextFieldGrade" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="35.0" prefWidth="210.0" style="-fx-background-color: #abeba0;" />
+               </children>
+            </HBox>
+            <TableView fx:id="tableViewGrades" prefHeight="350.0" prefWidth="360.0" AnchorPane.leftAnchor="10.0" AnchorPane.topAnchor="160.0">
+              <columns>
+                <TableColumn fx:id="gradesStudentNameCol" prefWidth="130.0" text="Student Name" />
+                  <TableColumn fx:id="gradesAssignmentCol" prefWidth="100.0" text="Assignment" />
+                  <TableColumn fx:id="gradesGradeCol" prefWidth="60.0" text="Grade" />
+                  <TableColumn fx:id="gradesProfessorCol" prefWidth="70.0" text="Professor" />
+              </columns>
+            </TableView>
+            <HBox prefHeight="50.0" prefWidth="360.0" AnchorPane.leftAnchor="10.0" AnchorPane.topAnchor="50.0">
+               <children>
+                  <Label alignment="CENTER" prefHeight="35.0" prefWidth="150.0" text="Search student by name" textAlignment="CENTER">
+                     <HBox.margin>
+                        <Insets />
+                     </HBox.margin>
+                     <font>
+                        <Font name="System Bold" size="12.0" />
+                     </font>
+                  </Label>
+                  <TextField fx:id="searchTextFieldGrade" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="35.0" prefWidth="210.0" style="-fx-background-color: #abeba0;">
+                     <HBox.margin>
+                        <Insets />
+                     </HBox.margin>
+                  </TextField>
+               </children>
+            </HBox>
+         </children>
+      </AnchorPane>
+      <AnchorPane prefHeight="550.0" prefWidth="600.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="35.0">
+         <children>
+            <TextField prefHeight="35.0" prefWidth="210.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="160.0" />
+            <DatePicker fx:id="datePicker" AnchorPane.leftAnchor="110.0" AnchorPane.topAnchor="50.0" />
+            <Label alignment="TOP_CENTER" prefHeight="35.0" prefWidth="100.0" text="Pick a date" textAlignment="CENTER" AnchorPane.topAnchor="50.0">
+               <font>
+                  <Font name="System Bold" size="12.0" />
+               </font>
+            </Label>
+            <Button mnemonicParsing="false" onAction="#handleAddGrade" prefHeight="35.0" prefWidth="100.0" text="Add Grade" AnchorPane.bottomAnchor="50.0" AnchorPane.rightAnchor="30.0" />
+            <TextField fx:id="gradeTextField" prefHeight="35.0" prefWidth="580.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="10.0" />
+            <TableView prefHeight="350.0" prefWidth="250.0" AnchorPane.leftAnchor="10.0" AnchorPane.topAnchor="160.0">
+              <columns>
+                <TableColumn prefWidth="100.0" text="First Name" />
+                <TableColumn prefWidth="100.0" text="Last Name" />
+                  <TableColumn prefWidth="50.0" text="Group" />
+              </columns>
+            </TableView>
+            <Label prefHeight="35.0" prefWidth="100.0" text="Grade" AnchorPane.rightAnchor="220.0" AnchorPane.topAnchor="160.0">
+               <font>
+                  <Font name="System Bold" size="12.0" />
+               </font>
+            </Label>
+            <Label prefHeight="35.0" prefWidth="100.0" text="Feedback" AnchorPane.rightAnchor="220.0" AnchorPane.topAnchor="220.0">
+               <font>
+                  <Font name="System Bold" size="12.0" />
+               </font>
+            </Label>
+            <TextArea prefHeight="70.0" prefWidth="210.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="200.0" />
+         </children></AnchorPane>
+   </children>
+</AnchorPane>

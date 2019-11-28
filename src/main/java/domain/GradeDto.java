@@ -2,12 +2,14 @@ package domain;
 
 public class GradeDto {
     private String studentName;
+    private Integer studentId;
     private String assignment;
     private float grade;
     private String professor;
 
-    public GradeDto(String studentName, String assignment, float grade, String professor) {
+    public GradeDto(String studentName, String assignment, float grade, String professor,int studentId) {
         this.studentName = studentName;
+        this.studentId=studentId;
         this.assignment = assignment;
         this.grade = grade;
         this.professor = professor;
@@ -35,5 +37,9 @@ public class GradeDto {
 
     public String getProfessor() {
         return professor;
+    }
+
+    public Integer getStudentId() {
+        return studentId;
     }
 }
