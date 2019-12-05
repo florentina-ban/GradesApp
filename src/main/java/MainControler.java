@@ -87,6 +87,9 @@ public class MainControler {
 
         GradesController gradeController=loader3.getController();
         gradeController.setService(gradesService);
+
+        gradesService.addObserver(gradeController);
+
         gradeController.setMainControler(this);
         this.addSceene("grades",rootGr);
 

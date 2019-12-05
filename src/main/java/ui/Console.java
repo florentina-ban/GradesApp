@@ -251,7 +251,8 @@ public class Console {
             float gr = Float.parseFloat(reader.readLine());
             System.out.println("Feedback: ");
             String feedback = reader.readLine();
-            if (gradesService.save(studId, assignId, prof, gr, feedback) == null)
+            Grade grade=new Grade(studId,assignId,prof,gr,feedback);
+            if (gradesService.save(grade) == null)
                 System.out.println("grade saved");
             else
                 System.out.println("grade already exists");

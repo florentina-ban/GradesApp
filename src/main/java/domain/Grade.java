@@ -28,6 +28,12 @@ public class Grade extends Entity<String> {
         this.setId(studentId.toString()+"_"+assignmentId);
     }
 
+    public Grade(Integer studentId, String assignmentId, String professor, float grade, String feedback, LocalDateTime myDate) {
+        this(professor, grade,feedback);
+        this.setId(studentId.toString()+"_"+assignmentId);
+        this.date=myDate;
+    }
+
     public Float getGrade_given() {
         return grade_given;
     }
@@ -86,7 +92,7 @@ public class Grade extends Entity<String> {
         return Integer.parseInt(idStudent);
     }
 
-    public float getPenalties() {
+    public Float getPenalties() {
         return this.calculatePentalties();
     }
 

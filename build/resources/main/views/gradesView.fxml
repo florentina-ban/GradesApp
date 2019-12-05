@@ -2,6 +2,8 @@
 
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
+<?import javafx.scene.control.CheckBox?>
+<?import javafx.scene.control.ComboBox?>
 <?import javafx.scene.control.DatePicker?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.Menu?>
@@ -15,7 +17,7 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="600.0" prefWidth="1000.0" style="-fx-background-image: url(green2.jpg);" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="GradesController">
+<AnchorPane fx:id="mainAnchorPane" prefHeight="600.0" prefWidth="1000.0" stylesheets="@../cssFiles/gradesCss.css" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="GradesController">
    <children>
       <MenuBar layoutX="10.0" layoutY="10.0" prefWidth="1000.0" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0">
          <menus>
@@ -28,9 +30,9 @@
                   <MenuItem mnemonicParsing="false" onAction="#handleExit" text="Exit" />
                </items>
             </Menu>
-            <Menu mnemonicParsing="false" text="Help">
+            <Menu mnemonicParsing="false" text="Statistics">
                <items>
-                  <MenuItem mnemonicParsing="false" text="About" />
+                  <MenuItem mnemonicParsing="false" onAction="#handleStat1" text="Laboratory grade" />
                </items>
             </Menu>
          </menus>
@@ -38,29 +40,46 @@
             <Insets bottom="5.0" top="5.0" />
          </padding>
       </MenuBar>
-      <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="565.0" prefWidth="400.0" AnchorPane.topAnchor="35.0">
+      <AnchorPane fx:id="sidePane" minHeight="-Infinity" minWidth="0.0" prefHeight="565.0" prefWidth="360.0" AnchorPane.topAnchor="35.0">
          <children>
-            <HBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="50.0" prefWidth="360.0" AnchorPane.leftAnchor="10.0" AnchorPane.topAnchor="100.0">
+            <Button mnemonicParsing="false" onAction="#handleHidePane" prefHeight="35.0" prefWidth="100.0" style="-fx-background-color: #8bd6d2;" text="Hide" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="5.0">
+               <font>
+                  <Font name="System Bold" size="12.0" />
+               </font>
+            </Button>
+            <HBox fx:id="hbox3" minWidth="0.0" prefHeight="50.0" prefWidth="330.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="10.0">
                <children>
-                  <Label alignment="CENTER" contentDisplay="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="35.0" prefWidth="150.0" text="Filter by group" textAlignment="CENTER">
+                  <Button minWidth="0.0" mnemonicParsing="false" onAction="#handleRemoveGrade" prefHeight="35.0" prefWidth="100.0" style="-fx-background-color: #8bd6d2;" text="Delete">
+                     <font>
+                        <Font name="System Bold" size="12.0" />
+                     </font>
+                     <HBox.margin>
+                        <Insets left="115.0" top="5.0" />
+                     </HBox.margin>
+                  </Button>
+               </children>
+            </HBox>
+            <HBox fx:id="hbox2" prefHeight="50.0" prefWidth="330.0" AnchorPane.leftAnchor="10.0" AnchorPane.topAnchor="100.0">
+               <children>
+                  <Label alignment="CENTER" contentDisplay="CENTER" minWidth="0.0" prefHeight="35.0" prefWidth="120.0" text="Filter by group" textAlignment="CENTER" HBox.hgrow="ALWAYS">
                      <font>
                         <Font name="System Bold" size="12.0" />
                      </font>
                   </Label>
-                  <TextField fx:id="filterTextFieldGrade" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="35.0" prefWidth="210.0" style="-fx-background-color: #abeba0;" />
+                  <TextField fx:id="filterTextFieldGrade" minWidth="0.0" prefHeight="35.0" prefWidth="210.0" style="-fx-background-color: #abeba0;" HBox.hgrow="ALWAYS" />
                </children>
             </HBox>
-            <TableView fx:id="tableViewGrades" prefHeight="350.0" prefWidth="360.0" AnchorPane.leftAnchor="10.0" AnchorPane.topAnchor="160.0">
+            <TableView fx:id="tableViewGrades" minHeight="0.0" minWidth="0.0" prefHeight="350.0" prefWidth="330.0" AnchorPane.leftAnchor="10.0" AnchorPane.topAnchor="160.0">
               <columns>
-                <TableColumn fx:id="gradesStudentNameCol" prefWidth="130.0" text="Student Name" />
-                  <TableColumn fx:id="gradesAssignmentCol" prefWidth="100.0" text="Assignment" />
-                  <TableColumn fx:id="gradesGradeCol" prefWidth="60.0" text="Grade" />
-                  <TableColumn fx:id="gradesProfessorCol" prefWidth="70.0" text="Professor" />
+                <TableColumn fx:id="gradesStudentNameCol" minWidth="0.0" prefWidth="110.0" text="Student Name" />
+                  <TableColumn fx:id="gradesAssignmentCol" minWidth="0.0" prefWidth="90.0" text="Assignment" />
+                  <TableColumn fx:id="gradesGradeCol" minWidth="0.0" prefWidth="60.0" text="Grade" />
+                  <TableColumn fx:id="gradesProfessorCol" minWidth="0.0" prefWidth="70.0" text="Professor" />
               </columns>
             </TableView>
-            <HBox prefHeight="50.0" prefWidth="360.0" AnchorPane.leftAnchor="10.0" AnchorPane.topAnchor="50.0">
+            <HBox fx:id="hbox1" prefHeight="50.0" prefWidth="330.0" AnchorPane.leftAnchor="10.0" AnchorPane.topAnchor="50.0">
                <children>
-                  <Label alignment="CENTER" prefHeight="35.0" prefWidth="150.0" text="Search student by name" textAlignment="CENTER">
+                  <Label alignment="CENTER" minWidth="0.0" prefHeight="35.0" prefWidth="120.0" text="Search grade" textAlignment="CENTER" HBox.hgrow="ALWAYS">
                      <HBox.margin>
                         <Insets />
                      </HBox.margin>
@@ -68,7 +87,7 @@
                         <Font name="System Bold" size="12.0" />
                      </font>
                   </Label>
-                  <TextField fx:id="searchTextFieldGrade" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="35.0" prefWidth="210.0" style="-fx-background-color: #abeba0;">
+                  <TextField fx:id="searchTextFieldGrade" minWidth="0.0" prefHeight="35.0" prefWidth="210.0" style="-fx-background-color: #abeba0;" HBox.hgrow="ALWAYS">
                      <HBox.margin>
                         <Insets />
                      </HBox.margin>
@@ -77,35 +96,80 @@
             </HBox>
          </children>
       </AnchorPane>
-      <AnchorPane prefHeight="550.0" prefWidth="600.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="35.0">
+      <AnchorPane fx:id="rightPane" layoutX="360.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onMouseClicked="#handleUnselection" prefHeight="566.0" prefWidth="640.0" stylesheets="@../cssFiles/gradesCss.css" AnchorPane.leftAnchor="360.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="35.0">
          <children>
-            <TextField prefHeight="35.0" prefWidth="210.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="160.0" />
-            <DatePicker fx:id="datePicker" AnchorPane.leftAnchor="110.0" AnchorPane.topAnchor="50.0" />
-            <Label alignment="TOP_CENTER" prefHeight="35.0" prefWidth="100.0" text="Pick a date" textAlignment="CENTER" AnchorPane.topAnchor="50.0">
+            <Label prefHeight="35.0" prefWidth="100.0" text="Assignments" AnchorPane.rightAnchor="220.0" AnchorPane.topAnchor="240.0">
                <font>
                   <Font name="System Bold" size="12.0" />
                </font>
             </Label>
-            <Button mnemonicParsing="false" onAction="#handleAddGrade" prefHeight="35.0" prefWidth="100.0" text="Add Grade" AnchorPane.bottomAnchor="50.0" AnchorPane.rightAnchor="30.0" />
-            <TextField fx:id="gradeTextField" prefHeight="35.0" prefWidth="580.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="10.0" />
-            <TableView prefHeight="350.0" prefWidth="250.0" AnchorPane.leftAnchor="10.0" AnchorPane.topAnchor="160.0">
+            <ComboBox fx:id="assignCombo" prefHeight="35.0" prefWidth="210.0" style="-fx-background-color: #abeba0;" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="240.0" />
+            <TextField fx:id="gradeTextField" prefHeight="35.0" prefWidth="210.0" style="-fx-background-color: #abeba0;" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="280.0" />
+            <DatePicker fx:id="datePicker" prefHeight="35.0" prefWidth="210.0" style="-fx-background-color: #abeba0;" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="180.0" />
+            <Label prefHeight="35.0" prefWidth="100.0" text="Pick a date" textAlignment="CENTER" AnchorPane.rightAnchor="220.0" AnchorPane.topAnchor="180.0">
+               <font>
+                  <Font name="System Bold" size="12.0" />
+               </font>
+            </Label>
+            <Button mnemonicParsing="false" onAction="#handleConfirmWindow" prefHeight="35.0" prefWidth="100.0" style="-fx-background-color: #8bd6d2;" text="Add Grade" AnchorPane.bottomAnchor="55.0" AnchorPane.rightAnchor="130.0">
+               <font>
+                  <Font name="System Bold" size="12.0" />
+               </font></Button>
+            <TableView fx:id="tableViewStudents" prefHeight="350.0" prefWidth="250.0" AnchorPane.rightAnchor="360.0" AnchorPane.topAnchor="160.0">
               <columns>
-                <TableColumn prefWidth="100.0" text="First Name" />
-                <TableColumn prefWidth="100.0" text="Last Name" />
-                  <TableColumn prefWidth="50.0" text="Group" />
+                <TableColumn fx:id="firstNameCol" prefWidth="100.0" text="First Name" />
+                <TableColumn fx:id="lastNameCol" prefWidth="100.0" text="Last Name" />
+                  <TableColumn fx:id="groupCol" prefWidth="50.0" text="Group" />
               </columns>
             </TableView>
-            <Label prefHeight="35.0" prefWidth="100.0" text="Grade" AnchorPane.rightAnchor="220.0" AnchorPane.topAnchor="160.0">
+            <Label prefHeight="35.0" prefWidth="100.0" text="Grade" AnchorPane.rightAnchor="220.0" AnchorPane.topAnchor="280.0">
                <font>
                   <Font name="System Bold" size="12.0" />
                </font>
             </Label>
-            <Label prefHeight="35.0" prefWidth="100.0" text="Feedback" AnchorPane.rightAnchor="220.0" AnchorPane.topAnchor="220.0">
+            <Label prefHeight="35.0" prefWidth="100.0" text="Feedback" AnchorPane.rightAnchor="220.0" AnchorPane.topAnchor="380.0">
                <font>
                   <Font name="System Bold" size="12.0" />
                </font>
             </Label>
-            <TextArea prefHeight="70.0" prefWidth="210.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="200.0" />
+            <TextArea fx:id="feedbackTextArea" prefHeight="70.0" prefWidth="210.0" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="360.0" />
+            <HBox prefHeight="50.0" prefWidth="330.0" AnchorPane.rightAnchor="280.0" AnchorPane.topAnchor="50.0">
+               <children>
+                  <Label prefHeight="35.0" prefWidth="120.0" text="Filter by name">
+                     <font>
+                        <Font name="System Bold" size="12.0" />
+                     </font>
+                  </Label>
+                  <TextField fx:id="filterNameStudent" prefHeight="35.0" prefWidth="210.0" style="-fx-background-color: #abeba0;" />
+               </children>
+            </HBox>
+            <HBox prefHeight="50.0" prefWidth="330.0" AnchorPane.rightAnchor="280.0" AnchorPane.topAnchor="100.0">
+               <children>
+                  <Label prefHeight="35.0" prefWidth="120.0" text="Filter by group">
+                     <font>
+                        <Font name="System Bold" size="12.0" />
+                     </font></Label>
+                  <TextField fx:id="filterGroupStudent" prefHeight="35.0" prefWidth="210.0" style="-fx-background-color: #abeba0;" />
+               </children>
+            </HBox>
+            <TextField fx:id="professorTextField" prefHeight="35.0" prefWidth="210.0" style="-fx-background-color: #abeba0;" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="320.0" />
+            <Label prefHeight="35.0" prefWidth="100.0" text="Professor" AnchorPane.rightAnchor="220.0" AnchorPane.topAnchor="320.0">
+               <font>
+                  <Font name="System Bold" size="12.0" />
+               </font>
+            </Label>
+            <TextField fx:id="messageTextField" prefHeight="35.0" prefWidth="620.0" style="-fx-background-color: #abeba0;" AnchorPane.bottomAnchor="10.0" AnchorPane.rightAnchor="10.0" />
+            <Label prefHeight="35.0" prefWidth="100.0" text="Motivation" AnchorPane.rightAnchor="220.0" AnchorPane.topAnchor="435.0">
+               <font>
+                  <Font name="System Bold" size="12.0" />
+               </font>
+            </Label>
+            <CheckBox fx:id="motivationCheck" mnemonicParsing="false" AnchorPane.rightAnchor="210.0" AnchorPane.topAnchor="445.0" />
          </children></AnchorPane>
+      <Button fx:id="unhideButton" disable="true" mnemonicParsing="false" onAction="#handleUnhide" prefHeight="35.0" prefWidth="100.0" style="-fx-background-color: #8bd6d2;" text="Unhide" visible="false" AnchorPane.leftAnchor="10.0" AnchorPane.topAnchor="40.0">
+         <font>
+            <Font name="System Bold" size="12.0" />
+         </font>
+      </Button>
    </children>
 </AnchorPane>

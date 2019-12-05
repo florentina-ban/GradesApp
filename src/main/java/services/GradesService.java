@@ -1,5 +1,6 @@
 package services;
 
+import Events.CustomEvent;
 import domain.*;
 import exceptions.GradeException;
 import org.json.simple.JSONObject;
@@ -75,17 +76,18 @@ public class GradesService extends SuperService<String,Grade>{
             }
         });
     }
-    public  Grade save(Integer studentId, String assignmentId, String professor, float gr, String feedback) throws GradeException {
-        if (assignmentFileRepository.findOne(assignmentId) == null)
+    public  Grade save(Grade grade) throws GradeException {
+        if (assignmentFileRepository.findOne(grade.getAssignmentId()) == null)
             throw new GradeException("Assignment not found");
-        if (studentFileRepository.findOne(studentId) == null)
+        if (studentFileRepository.findOne(grade.getStudentId()) == null)
             throw new GradeException("Student not found");
-        Grade grade=new Grade(studentId,assignmentId,professor,gr,feedback);
         grade.setDeadline(assignmentFileRepository.findOne(grade.getAssignmentId()).getDeadlineWeek());
         Grade returnGrade = repository.save(grade);
 
         //adding a line to the studentfeedback file
         if (returnGrade == null) {
+            super.notifyObservers(new CustomEvent());
+
             Student student = studentFileRepository.findOne(grade.getStudentId());
             String fileName = ApplicationContext.getPROPERTIES().getProperty("dataPath") + student.getSirName() + student.getName() + ".json";
             JSONObject obj=new JSONObject();
@@ -136,6 +138,7 @@ public class GradesService extends SuperService<String,Grade>{
     @Override
     public Grade delete(String s) {
         Grade grade = super.delete(s);
+        super.notifyObservers(new CustomEvent());
         if (grade != null) {
             reWriteStudentFeedback(grade.getStudentId());
         }
@@ -211,5 +214,18 @@ public class GradesService extends SuperService<String,Grade>{
     }
     public Student getStudent(Integer studentId){
         return studentFileRepository.findOne(studentId);
+    }
+    public List<Student> getAllStudents(){
+        return (List<Student>) studentFileRepository.findAll();
+    }
+    public List<Assignment> getAllAssignments(){
+        return (List<Assignment>) assignmentFileRepository.findAll();
+    }
+
+    public Grade motivateFunction(Grade grade){
+        Grade modifiedGrade = new Grade(grade.getId(),grade.getProfessor(),grade.getGrade_given(),grade.getFeedback());
+        modifiedGrade.setDeadline(grade.getDeadline());
+        modifiedGrade.setDate(grade.getDate().minusDays(7));
+        return modifiedGrade;
     }
 }

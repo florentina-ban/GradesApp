@@ -42,4 +42,8 @@ public class GradeDto {
     public Integer getStudentId() {
         return studentId;
     }
+    public String getGradeId(){
+        String s=studentId.toString()+'_'+assignment;
+        return s;
+    }
 }
