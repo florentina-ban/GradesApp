@@ -33,7 +33,8 @@ public class GradesController implements Observer<CustomEvent> {
     ObservableList<GradeDto> gradesModel = FXCollections.observableArrayList();
     ObservableList<Student> studentsModel = FXCollections.observableArrayList();
     ObservableList<Assignment> assignmentsModel = FXCollections.observableArrayList();
-
+    ObservableList<MeanDto> finalGradesModel=FXCollections.observableArrayList();
+    ObservableList<AssignDto> assignDtosModel=FXCollections.observableArrayList();
 
     @FXML
     TableView<GradeDto> tableViewGrades;
@@ -95,6 +96,8 @@ public class GradesController implements Observer<CustomEvent> {
     @FXML
     AnchorPane mainAnchorPane;
 
+    @FXML TextField controlPenalties;
+
     @FXML TextField confDate;
     @FXML TextField confStudent;
     @FXML TextField confPenalties;
@@ -105,6 +108,18 @@ public class GradesController implements Observer<CustomEvent> {
 
     //statistics
     @FXML TableView<MeanDto> stat1TableView;
+    @FXML TableColumn<MeanDto, String> stat1StudentCol;
+    @FXML TableColumn<MeanDto, Float> stat1GradeCol;
+    @FXML TextField stat1SearchName;
+    @FXML TextField stat1SearchGroup;
+
+    @FXML TableView<AssignDto> stat3TableView;
+    @FXML TableColumn<AssignDto, String> stat3StudentCol;
+    @FXML TableColumn<AssignDto, Float> stat3GradeCol;
+
+    @FXML TableView<MeanDto> stat4Table;
+    @FXML TableColumn<MeanDto, String> stat4StudentCol;
+    @FXML TableColumn<MeanDto, Integer> stat4GroupCol;
 
 
     public void initialize() {
@@ -120,6 +135,8 @@ public class GradesController implements Observer<CustomEvent> {
         searchTextFieldGrade.textProperty().addListener((obs, oldValue, newValue) -> {
             this.handleFilter();
         });
+
+        tableViewGrades.getSelectionModel().selectedItemProperty().addListener((obs,oldValue,newValue)->this.handlePenalties());
 
         firstNameCol.setCellValueFactory(new PropertyValueFactory<Student, String>("name"));
         lastNameCol.setCellValueFactory(new PropertyValueFactory<Student, String>("sirName"));
@@ -140,6 +157,13 @@ public class GradesController implements Observer<CustomEvent> {
             this.handleValidateGrade();
         });
         feedbackTextArea.setText("nice job! ");
+
+    }
+
+    private void handlePenalties() {
+        GradeDto gradeDto = tableViewGrades.getSelectionModel().getSelectedItem();
+        Grade grade = gradesService.findOne(gradeDto.getGradeId());
+        controlPenalties.setText(grade.getPenalties().toString());
     }
 
     private void setComboBoxText() {
@@ -294,7 +318,6 @@ public class GradesController implements Observer<CustomEvent> {
 
 
     public void handleConfirmWindow(ActionEvent actionEvent) {
-        //datePicker.setDisable(true);
         Student student = tableViewStudents.getSelectionModel().getSelectedItem();
         Assignment assignment = assignCombo.getSelectionModel().getSelectedItem();
         if (student != null && assignment != null) {
@@ -312,8 +335,6 @@ public class GradesController implements Observer<CustomEvent> {
                 boolean motivation = motivationCheck.isSelected();
                 if (motivation)
                     theGrade = gradesService.motivateFunction(theGrade);
-
-                //datePicker.setDisable(true);
 
                 FXMLLoader loader = new FXMLLoader();
                 loader.setLocation(this.getClass().getResource("/views/confirmationView.fxml"));
@@ -355,7 +376,6 @@ public class GradesController implements Observer<CustomEvent> {
     }
 
     public void handleCancelSave(ActionEvent actionEvent) {
-        //datePicker.setDisable(false);
         LocalDate date = LocalDate.parse(confDate.getText(), Constants.DATE_TIME_FORMATER);
         datePicker.setValue(date);
         Stage stage = (Stage) confDate.getScene().getWindow();
@@ -363,7 +383,6 @@ public class GradesController implements Observer<CustomEvent> {
     }
 
     public void handleSave(ActionEvent actionEvent) {
-        //datePicker.setDisable(false);
         Student student = tableViewStudents.getSelectionModel().getSelectedItem();
         Assignment assignment = assignCombo.getSelectionModel().getSelectedItem();
         if (student != null && assignment != null) {
@@ -581,6 +600,120 @@ public class GradesController implements Observer<CustomEvent> {
             Stage stage = new Stage();
             stage.setTitle("All laboratory grades");
             stage.setScene(new Scene(root2));
+
+            finalGradesModel.setAll(gradesService.getMeanDtos());
+            stat1TableView.setItems(finalGradesModel);
+            stat1StudentCol.setCellValueFactory(new PropertyValueFactory<MeanDto,String>("fullName"));
+            stat1GradeCol.setCellValueFactory(new PropertyValueFactory<MeanDto, Float>("mean"));
+
+            stat1SearchName.textProperty().addListener((obs,oldValue,newValue)->{this.handleSearchFilter();});
+            stat1SearchGroup.textProperty().addListener((obs,oldValue,newValue)->{this.handleSearchFilter();});
+
+            stage.show();
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    private void handleSearchFilter() {
+        Predicate<MeanDto> namePred=(meanDto -> meanDto.getFullName().toUpperCase().contains(stat1SearchName.getText().toUpperCase()));
+        Predicate<MeanDto> groupPred=(meanDto -> meanDto.getStudent().getGroup().toString().contains(stat1SearchGroup.getText()));
+
+        finalGradesModel.setAll(gradesService.getMeanDtos().stream()
+        .filter(namePred.and(groupPred))
+        .collect(Collectors.toList())
+        );
+    }
+
+    public void handleStat2(ActionEvent actionEvent) {
+        FXMLLoader loader6 = new FXMLLoader();
+        loader6.setLocation(this.getClass().getResource("/views/stat2View.fxml"));
+        loader6.setController(this);
+        Parent root3 = null;
+        try {
+            root3 = loader6.load();
+            Stage stage = new Stage();
+            stage.setScene(new Scene(root3));
+
+            finalGradesModel.setAll(gradesService.getMeanDtos().stream()
+                .filter(x->x.getMean()>4)
+                .collect(Collectors.toList())
+            );
+
+            stage.setTitle("Prepare yourselves! the time has come...");
+            stat1TableView.setItems(finalGradesModel);
+            stat1StudentCol.setCellValueFactory(new PropertyValueFactory<MeanDto,String>("fullName"));
+            stat1GradeCol.setCellValueFactory(new PropertyValueFactory<MeanDto, Float>("mean"));
+
+            stat1SearchName.textProperty().addListener((obs,oldValue,newValue)->{this.handleSearchFilter2();});
+            stat1SearchGroup.textProperty().addListener((obs,oldValue,newValue)->{this.handleSearchFilter2();});
+            stage.show();
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    private void handleSearchFilter2() {
+        Predicate<MeanDto> namePred=(meanDto -> meanDto.getFullName().toUpperCase().contains(stat1SearchName.getText().toUpperCase()));
+        Predicate<MeanDto> groupPred=(meanDto -> meanDto.getStudent().getGroup().toString().contains(stat1SearchGroup.getText()));
+        Predicate<MeanDto> mainPred=(meanDto->meanDto.getMean()>4);
+
+        finalGradesModel.setAll(gradesService.getMeanDtos().stream()
+                .filter(namePred.and(groupPred.and(mainPred)))
+                .collect(Collectors.toList())
+        );
+    }
+
+    public void handleStat3(ActionEvent actionEvent) {
+        FXMLLoader loader7 = new FXMLLoader();
+        loader7.setLocation(this.getClass().getResource("/views/stat3View.fxml"));
+        loader7.setController(this);
+        Parent root4 = null;
+        try {
+            root4 = loader7.load();
+            Stage stage = new Stage();
+            stage.setTitle("Most difficult assignment");
+            stage.setScene(new Scene(root4));
+
+            assignDtosModel.setAll(gradesService.getAssignDtos().stream()
+                    .sorted((x,y)->{
+                        return x.getGrade()<y.getGrade() ? -1 : 1;
+                        })
+                    .collect(Collectors.toList()));
+
+            stage.setTitle("The most difficult assignment");
+            stat3TableView.setItems(assignDtosModel);
+            stat3StudentCol.setCellValueFactory(new PropertyValueFactory<AssignDto,String>("assignmentId"));
+            stat3GradeCol.setCellValueFactory(new PropertyValueFactory<AssignDto, Float>("grade"));
+
+            stage.show();
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void handleStat4(ActionEvent actionEvent) {
+        FXMLLoader loader9 = new FXMLLoader();
+        loader9.setLocation(this.getClass().getResource("/views/stat4View.fxml"));
+        loader9.setController(this);
+        Parent root7 = null;
+        try {
+            root7 = loader9.load();
+            Stage stage = new Stage();
+            stage.setTitle("Conscientious students");
+            stage.setScene(new Scene(root7));
+
+            finalGradesModel.setAll(gradesService.getConciousStudents());
+            stat4Table.setItems(finalGradesModel);
+            stat4StudentCol.setCellValueFactory(new PropertyValueFactory<MeanDto,String>("fullName"));
+            stat4GroupCol.setCellValueFactory(new PropertyValueFactory<MeanDto, Integer>("group"));
+
+            //stat1SearchName.textProperty().addListener((obs,oldValue,newValue)->{this.handleSearchFilter();});
+            //stat1SearchGroup.textProperty().addListener((obs,oldValue,newValue)->{this.handleSearchFilter();});
+
             stage.show();
 
         } catch (IOException e) {

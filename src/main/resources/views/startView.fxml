@@ -17,11 +17,19 @@
          <menus>
             <Menu mnemonicParsing="false" text="Open">
                <items>
-                  <MenuItem mnemonicParsing="false" text="Students" />
-                  <MenuItem mnemonicParsing="false" text="Assignments" />
-                  <MenuItem mnemonicParsing="false" text="Grades" />
+                  <MenuItem mnemonicParsing="false" onAction="#startStudents" text="Students" />
+                  <MenuItem mnemonicParsing="false" onAction="#startAssignments" text="Assignments" />
+                  <MenuItem mnemonicParsing="false" onAction="#startGrades" text="Grades" />
                   <MenuItem mnemonicParsing="false" onAction="#handleCloseApp" text="Exit" />
                </items>
+            </Menu>
+            <Menu mnemonicParsing="false" text="Statistics">
+              <items>
+                <MenuItem disable="true" mnemonicParsing="false" text="Laboratory grade" />
+                  <MenuItem disable="true" mnemonicParsing="false" text="Prepare yourselves" />
+                  <MenuItem disable="true" mnemonicParsing="false" text="The most dificult assignment" />
+                  <MenuItem disable="true" mnemonicParsing="false" text="Conscientious ones" />
+              </items>
             </Menu>
             <Menu mnemonicParsing="false" text="Help">
                <items>

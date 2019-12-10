@@ -161,6 +161,13 @@
         <feedback>perfect</feedback>
         <date>04-11-2019</date>
     </grade>
+    <grade id="1133_assignment7">
+        <professor>m</professor>
+        <givenGrade>3.22</givenGrade>
+        <deadline>10</deadline>
+        <feedback>nice job! </feedback>
+        <date>29-11-2019</date>
+    </grade>
     <grade id="1112_assignment3">
         <professor>prof3</professor>
         <givenGrade>8.0</givenGrade>

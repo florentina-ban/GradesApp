@@ -8,24 +8,24 @@
 <?import javafx.scene.layout.HBox?>
 
 
-<AnchorPane prefHeight="400.0" prefWidth="380.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
+<AnchorPane prefHeight="400.0" prefWidth="380.0" style="-fx-background-image: url(green2.jpg);" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
    <children>
       <HBox prefHeight="50.0" prefWidth="360.0" AnchorPane.leftAnchor="10.0" AnchorPane.topAnchor="80.0">
          <children>
             <Label prefHeight="35.0" prefWidth="150.0" text="Search by Student" />
-            <TextField prefHeight="35.0" prefWidth="200.0" />
+            <TextField fx:id="stat1SearchName" prefHeight="35.0" prefWidth="200.0" style="-fx-background-color: #abeba0;" />
          </children>
       </HBox>
       <HBox prefHeight="50.0" prefWidth="360.0" AnchorPane.leftAnchor="10.0" AnchorPane.topAnchor="20.0">
          <children>
             <Label prefHeight="35.0" prefWidth="150.0" text="Search by group" />
-            <TextField prefHeight="35.0" prefWidth="200.0" />
+            <TextField fx:id="stat1SearchGroup" prefHeight="35.0" prefWidth="200.0" style="-fx-background-color: #abeba0;" />
          </children>
       </HBox>
-      <TableView prefHeight="260.0" prefWidth="360.0" AnchorPane.leftAnchor="10.0" AnchorPane.topAnchor="130.0">
+      <TableView fx:id="stat1TableView" prefHeight="260.0" prefWidth="360.0" AnchorPane.leftAnchor="10.0" AnchorPane.topAnchor="130.0">
         <columns>
-          <TableColumn prefWidth="208.0000057220459" text="Student Name" />
-          <TableColumn prefWidth="151.20001220703125" text="Laboratory grade" />
+          <TableColumn fx:id="stat1StudentCol" prefWidth="200.0" text="Student Name" />
+          <TableColumn fx:id="stat1GradeCol" prefWidth="160.0" text="Laboratory grade" />
         </columns>
       </TableView>
    </children>

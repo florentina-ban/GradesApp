@@ -12,8 +12,12 @@ import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.Writer;
+import java.text.DecimalFormat;
+import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
+import java.util.Optional;
 import java.util.function.Predicate;
 import java.util.stream.Collectors;
 
@@ -227,5 +231,86 @@ public class GradesService extends SuperService<String,Grade>{
         modifiedGrade.setDeadline(grade.getDeadline());
         modifiedGrade.setDate(grade.getDate().minusDays(7));
         return modifiedGrade;
+    }
+
+    class Aux{
+        public int pondere;
+        public float suma;
+
+        public Aux(int pondere, float suma) {
+            this.pondere = pondere;
+            this.suma = suma;
+        }
+    }
+    public List<MeanDto> getMeanDtos(){
+        DecimalFormat form=new DecimalFormat("#.##");
+        List<MeanDto> myList=new ArrayList<>();
+        List<Student> students=(List<Student>) studentFileRepository.findAll();
+        List<Grade> grades=(List<Grade>) repository.findAll();
+        students.forEach(student->{
+            List<Grade> grList=grades.stream()
+                    .filter(grade -> grade.getStudentId().compareTo(student.getId())==0)
+                    .collect(Collectors.toList());
+
+            List<Aux> list=new ArrayList<>();
+            grList.forEach(grade -> {
+                Assignment assignment=assignmentFileRepository.findOne(grade.getAssignmentId());
+                list.add(new Aux(assignment.getDeadlineWeek()-assignment.getStartWeek(),grade.getFinalGrade()));
+            });
+
+            if (list.isEmpty())
+                myList.add(new MeanDto(student,1));
+            else {
+                Optional<Integer> p=list.stream()
+                        .map(x->x.pondere)
+                        .reduce((x,y)->x+y);
+                Optional<Float> s=list.stream()
+                        .map(x->x.suma*x.pondere)
+                        .reduce((a,b)->a+b);
+                DecimalFormat f=new DecimalFormat("#.##");
+                myList.add(new MeanDto(student, Float.valueOf(f.format(s.get()/p.get()))));
+            }
+        });
+       return myList;
+    }
+    public List<AssignDto> getAssignDtos(){
+        List<AssignDto> list=new ArrayList<>();
+        List<Grade> gradeList=(List<Grade>) repository.findAll();
+        List<Assignment> assignmentList=(List<Assignment>) assignmentFileRepository.findAll();
+
+        assignmentList.forEach(assignment -> {
+            String currentDate = Constants.DATE_TIME_FORMATER.format(LocalDateTime.now());
+            if (assignment.getDeadlineWeek()<UniversityYear.getInstance().getSemester().getWeek(currentDate)) {
+                AssignDto assignDto = new AssignDto(assignment.getId());
+                gradeList.forEach(grade -> {
+                    if (grade.getAssignmentId().compareTo(assignDto.getAssignmentId()) == 0)
+                        assignDto.addGrade(grade.getFinalGrade());
+                });
+                list.add(assignDto);
+            }
+            });
+        return list;
+    }
+
+    public List<MeanDto> getConciousStudents(){
+        List<MeanDto> myList=new ArrayList<>();
+        List<Student> students=(List<Student>) studentFileRepository.findAll();
+        List<Grade> grades=(List<Grade>) repository.findAll();
+        students.forEach(student-> {
+
+            List<Grade> allGrades=new ArrayList<>();
+            List<Grade> gradesWithPenalties =new ArrayList<>();
+            grades.stream()
+                    .forEach(grade -> {
+                        if (grade.getStudentId().compareTo(student.getId()) == 0  && grade.getPenalties()>0)
+                            gradesWithPenalties.add(grade);
+                        else
+                            if (grade.getStudentId().compareTo(student.getId()) == 0 )
+                            allGrades.add(grade);
+                    });
+            if (allGrades.size() > 0 && gradesWithPenalties.size()==0)
+                myList.add(new MeanDto(student, 0));
+        });
+        return  myList;
     }
 }

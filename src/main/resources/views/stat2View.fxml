@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+
+
+<AnchorPane prefHeight="400.0" prefWidth="380.0" style="-fx-background-image: url(green2.jpg);" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
+    <children>
+        <HBox prefHeight="50.0" prefWidth="360.0" AnchorPane.leftAnchor="10.0" AnchorPane.topAnchor="80.0">
+            <children>
+                <Label prefHeight="35.0" prefWidth="150.0" text="Search by Student" />
+                <TextField fx:id="stat1SearchName" prefHeight="35.0" prefWidth="200.0" style="-fx-background-color: #abeba0;" />
+            </children>
+        </HBox>
+        <HBox prefHeight="50.0" prefWidth="360.0" AnchorPane.leftAnchor="10.0" AnchorPane.topAnchor="20.0">
+            <children>
+                <Label prefHeight="35.0" prefWidth="150.0" text="Search by group" />
+                <TextField fx:id="stat1SearchGroup" prefHeight="35.0" prefWidth="200.0" style="-fx-background-color: #abeba0;" />
+            </children>
+        </HBox>
+        <TableView fx:id="stat1TableView" prefHeight="260.0" prefWidth="360.0" AnchorPane.leftAnchor="10.0" AnchorPane.topAnchor="130.0">
+            <columns>
+                <TableColumn fx:id="stat1StudentCol" prefWidth="200.0" text="Student Name" />
+                <TableColumn fx:id="stat1GradeCol" prefWidth="160.0" text="Laboratory grade" />
+            </columns>
+        </TableView>
+    </children>
+</AnchorPane>
