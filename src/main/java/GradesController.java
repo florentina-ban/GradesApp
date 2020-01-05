@@ -121,6 +121,8 @@ public class GradesController implements Observer<CustomEvent> {
     @FXML TableColumn<MeanDto, String> stat4StudentCol;
     @FXML TableColumn<MeanDto, Integer> stat4GroupCol;
 
+    @FXML Label label;
+
 
     public void initialize() {
         gradesStudentNameCol.setCellValueFactory(new PropertyValueFactory<GradeDto, String>("studentName"));
@@ -416,6 +418,7 @@ public class GradesController implements Observer<CustomEvent> {
                     feedbackTextArea.clear();
                     datePicker.setValue(LocalDate.now());
                     motivationCheck.setSelected(false);
+                    feedbackTextArea.setText("nice job! ");
                     this.selectAssignment();
                 } else
                     messageTextField.setText("grade already exists");
@@ -711,13 +714,17 @@ public class GradesController implements Observer<CustomEvent> {
             stat4StudentCol.setCellValueFactory(new PropertyValueFactory<MeanDto,String>("fullName"));
             stat4GroupCol.setCellValueFactory(new PropertyValueFactory<MeanDto, Integer>("group"));
 
-            //stat1SearchName.textProperty().addListener((obs,oldValue,newValue)->{this.handleSearchFilter();});
-            //stat1SearchGroup.textProperty().addListener((obs,oldValue,newValue)->{this.handleSearchFilter();});
 
             stage.show();
 
         } catch (IOException e) {
             e.printStackTrace();
         }
+    }
+    public void handleAbout(ActionEvent actionEvent) {
+        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+        alert.setTitle("About");
+        alert.setContentText("This is a complex application for grading students! \n Thank you for using GradesApp!");
+        alert.showAndWait();
     }
 }

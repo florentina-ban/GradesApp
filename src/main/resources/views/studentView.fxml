@@ -33,9 +33,17 @@
                   <MenuItem mnemonicParsing="false" onAction="#handleExit" text="Exit" />
             </items>
           </Menu>
+            <Menu mnemonicParsing="false" text="Statistics">
+              <items>
+                <MenuItem disable="true" mnemonicParsing="false" text="Laboratory grade" />
+                  <MenuItem disable="true" mnemonicParsing="false" text="Prepare yourselves" />
+                  <MenuItem disable="true" mnemonicParsing="false" text="The most dificult assignment" />
+                  <MenuItem disable="true" mnemonicParsing="false" text="Conscientious ones" />
+              </items>
+            </Menu>
           <Menu mnemonicParsing="false" text="Help">
             <items>
-              <MenuItem mnemonicParsing="false" text="About" />
+              <MenuItem mnemonicParsing="false" onAction="#handleAbout" text="About" />
             </items>
           </Menu>
         </menus>

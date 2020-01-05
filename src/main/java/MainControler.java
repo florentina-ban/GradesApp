@@ -5,6 +5,7 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.MenuItem;
 import javafx.scene.layout.AnchorPane;
@@ -115,5 +116,12 @@ public class MainControler {
 
     public void startGrades(ActionEvent actionEvent) {
         main.setRoot(allScenes.get("grades"));
+    }
+
+    public void handleAbout(ActionEvent actionEvent) {
+        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+        alert.setTitle("About");
+        alert.setContentText("This is a complex application for grading students! \n Thank you for using GradesApp!");
+        alert.showAndWait();
     }
 }

@@ -240,4 +240,10 @@ public class StudentController implements Observer<CustomEvent> {
     public void handleExit(ActionEvent actionEvent) {
         System.exit(0);
     }
+    public void handleAbout(ActionEvent actionEvent) {
+        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+        alert.setTitle("About");
+        alert.setContentText("This is a complex application for grading students! \n Thank you for using GradesApp!");
+        alert.showAndWait();
+    }
 }

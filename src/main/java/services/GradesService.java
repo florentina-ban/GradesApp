@@ -235,59 +235,58 @@ public class GradesService extends SuperService<String,Grade>{
 
     class Aux{
         public int pondere;
-        public float suma;
+        public float nota;
 
-        public Aux(int pondere, float suma) {
+        public Aux(int pondere, float nota) {
             this.pondere = pondere;
-            this.suma = suma;
+            this.nota = nota;
         }
     }
     public List<MeanDto> getMeanDtos(){
-        DecimalFormat form=new DecimalFormat("#.##");
         List<MeanDto> myList=new ArrayList<>();
         List<Student> students=(List<Student>) studentFileRepository.findAll();
-        List<Grade> grades=(List<Grade>) repository.findAll();
-        students.forEach(student->{
-            List<Grade> grList=grades.stream()
-                    .filter(grade -> grade.getStudentId().compareTo(student.getId())==0)
-                    .collect(Collectors.toList());
-
-            List<Aux> list=new ArrayList<>();
-            grList.forEach(grade -> {
-                Assignment assignment=assignmentFileRepository.findOne(grade.getAssignmentId());
-                list.add(new Aux(assignment.getDeadlineWeek()-assignment.getStartWeek(),grade.getFinalGrade()));
-            });
-
-            if (list.isEmpty())
-                myList.add(new MeanDto(student,1));
-            else {
-                Optional<Integer> p=list.stream()
-                        .map(x->x.pondere)
-                        .reduce((x,y)->x+y);
-                Optional<Float> s=list.stream()
-                        .map(x->x.suma*x.pondere)
-                        .reduce((a,b)->a+b);
-                DecimalFormat f=new DecimalFormat("#.##");
-                myList.add(new MeanDto(student, Float.valueOf(f.format(s.get()/p.get()))));
-            }
-        });
+       students.forEach(student -> {
+           List<Aux> auxList=new ArrayList<>();
+           List<Assignment> assignments=(List<Assignment>)assignmentFileRepository.findAll();
+           assignments.forEach(assignment -> {
+               String gradeId=student.getId().toString()+"_"+assignment.getId();
+               Grade foundGrade=repository.findOne(gradeId);
+               if (foundGrade==null)
+                   auxList.add(new Aux(assignment.getDeadlineWeek()-assignment.getStartWeek(),1));
+               else
+                   auxList.add(new Aux(assignment.getDeadlineWeek()-assignment.getStartWeek(),foundGrade.getFinalGrade()));
+           });
+           Optional<Integer> sumaPonderi=auxList.stream()
+                   .map(x->x.pondere)
+                   .reduce((x,y)->x+y);
+           Optional<Float> sumaNote=auxList.stream()
+                   .map(x->x.nota*x.pondere)
+                   .reduce((a,b)->a+b);
+           DecimalFormat f=new DecimalFormat("#.##");
+           myList.add(new MeanDto(student, Float.valueOf(f.format(sumaNote.get()/sumaPonderi.get()))));
+       });
        return myList;
     }
+
     public List<AssignDto> getAssignDtos(){
         List<AssignDto> list=new ArrayList<>();
-        List<Grade> gradeList=(List<Grade>) repository.findAll();
-        List<Assignment> assignmentList=(List<Assignment>) assignmentFileRepository.findAll();
+        List<Student> studentsList=(List<Student>) studentFileRepository.findAll();
+        List<Assignment> assignmentList=((List<Assignment>) assignmentFileRepository.findAll()).stream()
+                .filter(assignment -> assignment.getDeadlineWeek()<UniversityYear.getInstance().getSemester().getWeek(Constants.DATE_TIME_FORMATER.format(LocalDateTime.now())))
+                .collect(Collectors.toList());
 
         assignmentList.forEach(assignment -> {
-            String currentDate = Constants.DATE_TIME_FORMATER.format(LocalDateTime.now());
-            if (assignment.getDeadlineWeek()<UniversityYear.getInstance().getSemester().getWeek(currentDate)) {
-                AssignDto assignDto = new AssignDto(assignment.getId());
-                gradeList.forEach(grade -> {
-                    if (grade.getAssignmentId().compareTo(assignDto.getAssignmentId()) == 0)
-                        assignDto.addGrade(grade.getFinalGrade());
-                });
+                AssignDto assignDto=new AssignDto(assignment.getId());
+                studentsList.stream()
+                        .forEach(student -> {
+                            String gradeId=student.getId().toString()+"_"+assignment.getId();
+                            Grade foundGrade=repository.findOne(gradeId);
+                            if (foundGrade==null)
+                                assignDto.addGrade(1);
+                            else
+                                assignDto.addGrade(foundGrade.getFinalGrade());
+                        });
                 list.add(assignDto);
-            }
             });
         return list;
     }
@@ -295,20 +294,22 @@ public class GradesService extends SuperService<String,Grade>{
     public List<MeanDto> getConciousStudents(){
         List<MeanDto> myList=new ArrayList<>();
         List<Student> students=(List<Student>) studentFileRepository.findAll();
-        List<Grade> grades=(List<Grade>) repository.findAll();
-        students.forEach(student-> {
+        List<Assignment> allAssignments =(List<Assignment>) assignmentFileRepository.findAll();
 
-            List<Grade> allGrades=new ArrayList<>();
-            List<Grade> gradesWithPenalties =new ArrayList<>();
-            grades.stream()
-                    .forEach(grade -> {
-                        if (grade.getStudentId().compareTo(student.getId()) == 0  && grade.getPenalties()>0)
-                            gradesWithPenalties.add(grade);
-                        else
-                            if (grade.getStudentId().compareTo(student.getId()) == 0 )
-                            allGrades.add(grade);
-                    });
-            if (allGrades.size() > 0 && gradesWithPenalties.size()==0)
+        students.forEach(student-> {
+            List<Assignment> assignments= allAssignments.stream()
+                  .filter(assignment ->
+                      assignment.getDeadlineWeek() < UniversityYear.getInstance().getSemester().getWeek(Constants.DATE_TIME_FORMATER.format(LocalDateTime.now())))
+                  .filter(assignment -> {
+                      String gradeId=student.getId().toString()+"_"+assignment.getId();
+                      Grade foundGrade = repository.findOne(gradeId);
+                      if (foundGrade==null || foundGrade.getPenalties()>0)
+                          return true;
+                      else
+                          return false;
+                  })
+                  .collect(Collectors.toList());
+            if (assignments.size()==0)
                 myList.add(new MeanDto(student, 0));
         });
         return  myList;
